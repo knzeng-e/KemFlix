@@ -1,0 +1,168 @@
+.App {
+  text-align: center;
+  /* background-color: #282c34; */
+  background-color: #282c34;
+  min-height: 100vh;
+}
+
+.Navbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* background-color: #00000055!important; */
+  background: linear-gradient(#040624, #696d6e18) !important;
+  color: red;
+}
+
+.Navbar h1 {
+  padding-top: 1.5rem;  
+}
+
+.SiteTitle {
+  color: red !important;
+
+}
+
+.Menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.623) !important;
+  font-size: large;
+  
+}
+
+.Menu.active {
+  color: rgb(255, 255, 255)!important;
+  text-decoration: none!important;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.Videos {
+  margin-top: 4.2% !important;
+  margin-top: 4.2% !important;
+  margin-left: 2.1% !important;
+  margin-right: 2.1% !important;
+  /* flex-direction: row; */
+}
+
+.video :hover {
+  color: #ff0000;
+
+}
+
+.video-description {
+  background: linear-gradient(#696d6e18, #040624) !important;
+  background: linear-gradient(#282c34, #040624) !important;
+  background: linear-gradient(#606985, #020429) !important;
+  background: linear-gradient(#460707fd, #0c045a) !important;
+  background: linear-gradient(#07013b, #080127fd) !important;
+
+  color: rgb(255, 253, 253);
+}
+
+.video-description:hover {
+  color: #f62828;
+  background: linear-gradient(#000000fd, #0c045a) !important;
+  background: linear-gradient(#606985, #020429) !important;
+
+
+
+}
+
+.video-title {
+  color: rgb(248, 246, 246);
+  margin-bottom: 42px;
+  /* text-decoration: underline; */
+}
+
+.CardVideoContent{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(#000000fd, #ffffff) !important;
+  background: linear-gradient(#696d6e18, #040624) !important;
+  background: linear-gradient(#000000fd, #0c045a) !important;
+  color:white;
+  font-size: large!important;
+  font-style: italic;
+  min-height: 21vh;
+  text-align: center !important;
+}
+
+.audio-player {
+  /* background: linear-gradient(#7caf2a, #063a09fd) !important; */
+  background: linear-gradient(#fefffd, #d6d5d5fd) !important;
+  border-radius: 4px;
+  color: red;
+}
+
+.book-info {
+  background: linear-gradient(#fefffd, #d6d5d5fd) !important;
+}
+
+.book-info a {
+  color: rgb(7, 6, 77) !important;
+}
+
+.book-info-no-audio {
+  color: rgb(7, 6, 77) !important;
+  background: linear-gradient(#fefffd, #d6d5d5fd) !important;
+}
+
+.book-info a:hover {
+  color: rgb(212, 1, 1) !important;
+}
+
+.audio-card{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  /* background: linear-gradient(#fefffd, #d6d5d5fd) !important; */
+  margin: 2.1%;
+
+}
+
+.audio-content{
+  padding-top: 4.2% !important;
+  padding-bottom: 4.2% !important;
+}
+
+.audio-background{
+  background: linear-gradient(#000425, #d6d6d5fd) !important;
+  background: linear-gradient(#000000, #4b0202) !important;
+  background: linear-gradient(#040624, #696d6e18) !important;
+  background: linear-gradient(#f6f6f6,#040624) !important;
+}
+
+.webradio{
+  background: linear-gradient(#040624, #696d6e18) !important;
+  
+}

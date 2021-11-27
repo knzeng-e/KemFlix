@@ -1,3 +1,8 @@
+ 
+![Alt text](KemFlix_1.png "KemFlix_home")
+ 
+![Alt text](KemFlix_2.png "KemFlix_book")
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -16,7 +16,7 @@ const fondements_economiques_et_culturels = {
     title: "Les fondements économiques & culturels d'un état fédéral d'Afrique",
     author: 'Cheikh Anta Diop',
     description: les_fondements_economiques,
-    isAudio: false,
+    isAudio: true,
     illustration: 'https://firebasestorage.googleapis.com/v0/b/essims-videos.appspot.com/o/images%2Fpanafricanisme%2Fles_fondements_eco.png?alt=media&token=2e4ec570-14b3-408c-90b7-44a087bc6456'
 }
 

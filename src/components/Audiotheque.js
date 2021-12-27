@@ -22,7 +22,7 @@ const Audiotheque = () => {
                 {books.map((book, key) => {
                     return (
                         <Card id={book.ref} >
-                            <Segment  className={book.isAudio ? 'book-info': 'book-info-no-audio'} raised >
+                            <Segment className={book.isAudio ? 'book-info': 'book-info-no-audio'} raised >
                                 {book.isAudio ? <Link  to={getAudioLink(book)}>
                                     <Icon name='play'/> {book.title}
                                 </Link> : (<><Icon name=''/> <i>Disponible Prochainement</i> - {book.title} </>) 
@@ -62,7 +62,6 @@ const Audiotheque = () => {
                     )
                 })}
             </Card.Group>
-            {/* </div> */}
         </Container>
     )
 }

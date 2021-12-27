@@ -15,30 +15,30 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 function App() {
   const [activeItem, setActiveItem] = useState('home');
-  const [isConnected, setIsConnected] = useState(false);
+  const [isConnected, setIsConnected] = useState(true);
   const displayMenu = () => {
     if (isConnected){
         return   (
           <Segment className='Navbar' size='large'>
-        <h1><Link className='SiteTitle' to='/'>Kem'Flix</Link></h1>
-        <Menu pointing secondary stackable>
-          {rubriques.map(onglet => {
-            return (
-              <Link to = {renderPage(onglet)}>
-                <Menu.Item
-                  className='Menu'
-                  name = {onglet}
-                  active = {activeItem === onglet}
-                  onClick = {
-                    () => {
-                      setActiveItem(onglet);
+          <h1><Link className='SiteTitle' to='/'>Kem'Flix</Link></h1>
+          <Menu pointing secondary stackable>
+            {rubriques.map(onglet => {
+              return (
+                <Link to = {renderPage(onglet)}>
+                  <Menu.Item
+                    className='Menu'
+                    name = {onglet}
+                    active = {activeItem === onglet}
+                    onClick = {
+                      () => {
+                        setActiveItem(onglet);
+                      }
                     }
-                  }
-                />
-              </Link>
-            )
-          })}
-        </Menu>
+                  />
+                </Link>
+              )
+            })}
+          </Menu>
       </Segment>)
     }
       return (

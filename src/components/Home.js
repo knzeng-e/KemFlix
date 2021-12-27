@@ -1,14 +1,25 @@
 import React from 'react';
-import { Embed, Container, Segment } from 'semantic-ui-react';
-import amzamt_image from '../images/Amzat_interview.png';
 import VideoStore from './VideoStore';
+import { useForm } from 'react-hook-form';
+import amzamt_image from '../images/Amzat_interview.png';
+import { Embed, Container, Segment } from 'semantic-ui-react';
 
 function Home() {
+    const {
+        register,
+        handleSubmit,
+    } = useForm();
+
+    const onSubmit = (data) => {
+        console.log(data);
+    }
     return (
         <div>
-            <Segment placeholder >
+            {/* <form onSubmit={handleSubmit(onSubmit)}>
+                <input {...register('Prenom')}/>
+                <input {...register('Nom')}/>
 
-            </Segment>
+            </form> */}
             {/* <Container>
                 <Embed
                     id='P1weqiWFKNU'
@@ -16,7 +27,7 @@ function Home() {
                     source='youtube'
                 />
             </Container> */}
-            {/* <VideoStore /> */}
+            <VideoStore />
         </div>
     )
 }

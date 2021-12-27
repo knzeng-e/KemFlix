@@ -19,7 +19,11 @@ const AudioBooks = () => {
 
     useEffect(() => {
         console.log('changing Audio Source ..;')
-    }, [currentAudio])
+    }, [currentAudio]);
+
+    const formatTitle = (title) => {
+        return (title.length <= 42 ? title : `${title.substring(0, 41)}...`);
+    }
 
     return (
         <Container>
@@ -31,7 +35,7 @@ const AudioBooks = () => {
                         return (
                             <Audio
                                 image={audio.illustration}
-                                title={audio.title}
+                                title={formatTitle(audio.title)}
                                 author={audio.author}
                                 id={audio.id}
                                 src={audio.source}

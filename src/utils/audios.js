@@ -332,5 +332,3 @@ const kemFlixDB = {
         },
     ]
 };
-
-console.log(JSON.stringify(kemFlixDB))

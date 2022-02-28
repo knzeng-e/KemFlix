@@ -25,9 +25,9 @@ function App() {
           <Segment className='Navbar' size='large'>
           <h1><Link className='SiteTitle' to='/'>Kem'Flix</Link></h1>
           <Menu pointing secondary stackable>
-            {rubriques.map(onglet => {
+            {rubriques.map((onglet, index) => {
               return (
-                <Link to = {renderPage(onglet)}>
+                <Link to = {renderPage(onglet)} key = {index}>
                   <Menu.Item
                     className='Menu'
                     name = {onglet}
@@ -48,7 +48,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <AuthProvider>
+        {/* <AuthProvider> */}
           { displayMenu() }
           <Switch>
             <Route exact path = '/' component = {Login}/>
@@ -65,7 +65,7 @@ function App() {
             <Route path = '' component = {} />
             <Route path = '' component = {} /> */}
           </Switch>
-        </AuthProvider>
+        {/* </AuthProvider> */}
       </Router>
     </div>
   );

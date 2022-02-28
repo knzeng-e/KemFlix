@@ -4,7 +4,7 @@ import { Card, Container, Divider, Header } from 'semantic-ui-react';
 import { documentaires } from '../utils/videoLinks/documentairesLinks';
 
 const Documentaires = ({user}) => {
-
+    console.log("USERS >> ", user);
     return (
         <>
             <Card.Group className="Videos" itemsPerRow={3} stackable centered>
@@ -12,6 +12,7 @@ const Documentaires = ({user}) => {
                 {documentaires.map((documentaire, index) => {
                     return (
                             <Video
+                                key= {index}
                                 duree = {documentaire.duree}
                                 titre = {documentaire.titre}
                                 src= {documentaire.illustration}

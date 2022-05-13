@@ -2,6 +2,8 @@
   text-align: center;
   /* background-color: #282c34; */
   background-color: #282c34;
+  background: linear-gradient(#01082ed6, #000000);
+
   min-height: 100vh;
 }
 
@@ -9,6 +11,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   /* background-color: #00000055!important; */
   background: linear-gradient(#040624, #696d6e18) !important;
   color: red;
@@ -18,9 +21,12 @@
   padding-top: 1.5rem;  
 }
 
-.SiteTitle {
+.title {
   color: red !important;
+}
 
+.login-title {
+  color: white !important;
 }
 
 .Menu {
@@ -40,12 +46,6 @@
 .App-logo {
   height: 40vmin;
   pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
 }
 
 .App-header {
@@ -164,5 +164,40 @@
 
 .webradio{
   background: linear-gradient(#040624, #696d6e18) !important;
-  
+}
+
+.login-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(#01082ed6, #000000);
+  padding-top: 18.4rem;
+  padding-bottom: 18.4rem;
+  margin-top: 4.2%;
+}
+
+.login-card {
+  margin-top: 2%;
+}
+
+.login-card :hover{
+  margin-top: 2%;
+  color: rgb(255, 128, 0) !important;
+}
+
+.login-button {
+  background: linear-gradient(#6a06064a, #000000, #6a0606) !important;
+
+};
+
+.login-button-text :hover {
+  color: yellow !important;
+}
+
+.label-user {
+  background: linear-gradient(#e4e4e4, #9b9898, #ffffff) !important;
+  color: rgb(6, 12, 84) !important;
+
+
 }

@@ -70,7 +70,7 @@ function App() {
             </Message.Header>
             <Message.Content>
               <a className='login-card' href='https://metamask.io/' target="_blank" rel="noreferrer">
-                Web3 Site : You need Metamask plugin to Log ..
+                Web3 Site : You need Metamask plugin to Login ..
               </a>
             </Message.Content>
           </Message>

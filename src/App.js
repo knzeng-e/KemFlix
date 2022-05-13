@@ -46,7 +46,7 @@ function App() {
       </Router>
     );
   } else {
-    if (hasMetamask) {
+    if (window.ethereum) {
       return (
         <Container className='login-page'>
           <div className='login-card'>

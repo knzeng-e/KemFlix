@@ -1,0 +1,3 @@
+export const ZTM_Ethereum_Blockchain = `We guarantee you that this is the most comprehensive and up-to-date course to learn Solidity, Ethereum, and Blockchain Development and help you gain the skills to get hired as a Blockchain Developer in 2022.
+
+You'll learn everything there is to know about advanced blockchain technologies, smart contracts, decentralized apps, be able to build and implement your own stablecoin, and much more.`

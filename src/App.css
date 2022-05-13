@@ -1,18 +1,18 @@
 .App {
   text-align: center;
-  /* background-color: #282c34; */
   background-color: #282c34;
   background: linear-gradient(#01082ed6, #000000);
-
+  margin: 0 !important;
   min-height: 100vh;
+  min-width: 100vw;
 }
 
 .Navbar {
+  margin: 0 !important;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  /* background-color: #00000055!important; */
   background: linear-gradient(#040624, #696d6e18) !important;
   color: red;
 }
@@ -30,17 +30,20 @@
 }
 
 .Menu {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: rgba(255, 255, 255, 0.623) !important;
   font-size: large;
+
   
 }
 
 .Menu.active {
   color: rgb(255, 255, 255)!important;
   text-decoration: none!important;
+}
+.Menu:hover {
+  color: rgb(243, 19, 19)!important;
+  font-size: large;
+
 }
 
 .App-logo {
@@ -64,23 +67,15 @@
 }
 
 .Videos {
-  margin-top: 4.2% !important;
-  margin-top: 4.2% !important;
-  margin-left: 2.1% !important;
-  margin-right: 2.1% !important;
-  /* flex-direction: row; */
+  padding: 4.2% !important;
+  margin: 0 !important;
 }
 
 .video :hover {
   color: #ff0000;
-
 }
 
 .video-description {
-  background: linear-gradient(#696d6e18, #040624) !important;
-  background: linear-gradient(#282c34, #040624) !important;
-  background: linear-gradient(#606985, #020429) !important;
-  background: linear-gradient(#460707fd, #0c045a) !important;
   background: linear-gradient(#07013b, #080127fd) !important;
 
   color: rgb(255, 253, 253);
@@ -88,17 +83,12 @@
 
 .video-description:hover {
   color: #f62828;
-  background: linear-gradient(#000000fd, #0c045a) !important;
   background: linear-gradient(#606985, #020429) !important;
-
-
-
 }
 
 .video-title {
   color: rgb(248, 246, 246);
   margin-bottom: 42px;
-  /* text-decoration: underline; */
 }
 
 .CardVideoContent{
@@ -106,8 +96,6 @@
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  background: linear-gradient(#000000fd, #ffffff) !important;
-  background: linear-gradient(#696d6e18, #040624) !important;
   background: linear-gradient(#000000fd, #0c045a) !important;
   color:white;
   font-size: large!important;
@@ -117,26 +105,30 @@
 }
 
 .audio-player {
-  /* background: linear-gradient(#7caf2a, #063a09fd) !important; */
   background: linear-gradient(#fefffd, #d6d5d5fd) !important;
   border-radius: 4px;
   color: red;
 }
 
-.book-info {
+
+.e-learning {
+  padding: 4.2% !important;
+}
+
+.book-info, .elearning-header {
   background: linear-gradient(#fefffd, #d6d5d5fd) !important;
 }
 
-.book-info a {
+.book-info a, .elearning-header a {
   color: rgb(7, 6, 77) !important;
 }
 
-.book-info-no-audio {
+.book-info-no-audio, .not-opened-header {
   color: rgb(7, 6, 77) !important;
   background: linear-gradient(#fefffd, #d6d5d5fd) !important;
 }
 
-.book-info a:hover {
+.book-info a:hover, .elearning-header a:hover {
   color: rgb(212, 1, 1) !important;
 }
 
@@ -145,20 +137,16 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  /* background: linear-gradient(#fefffd, #d6d5d5fd) !important; */
   margin: 2.1%;
 
 }
 
 .audio-content{
-  padding-top: 4.2% !important;
-  padding-bottom: 4.2% !important;
+  padding: 4.2% !important;
+  margin: 0 !important;
 }
 
 .audio-background{
-  background: linear-gradient(#000425, #d6d6d5fd) !important;
-  background: linear-gradient(#000000, #4b0202) !important;
-  background: linear-gradient(#040624, #696d6e18) !important;
   background: linear-gradient(#f6f6f6,#040624) !important;
 }
 
@@ -167,14 +155,16 @@
 }
 
 .login-page {
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(#01082ed6, #000000);
-  padding-top: 18.4rem;
-  padding-bottom: 18.4rem;
-  margin-top: 4.2%;
+  border-radius: 12px;
+  padding-top: 10rem;
+  padding-bottom: 10rem;
+  padding-left: 0;
+  padding-right: 0;
+  margin: 16rem;
 }
 
 .login-card {
@@ -187,17 +177,25 @@
 }
 
 .login-button {
-  background: linear-gradient(#6a06064a, #000000, #6a0606) !important;
-
+  background: linear-gradient(#b0aeae8f, #000000, #020550) !important;
 };
 
 .login-button-text :hover {
   color: yellow !important;
 }
+.login-button-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
 
 .label-user {
   background: linear-gradient(#e4e4e4, #9b9898, #ffffff) !important;
   color: rgb(6, 12, 84) !important;
+}
 
-
+.course-content {
+  margin: 2.1rem !important;
+  cursor: pointer;
 }

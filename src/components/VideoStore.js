@@ -4,7 +4,6 @@ import { Card, Container, Divider, Header } from 'semantic-ui-react';
 import { documentaires } from '../utils/videoLinks/documentairesLinks';
 
 const VidoeStore = ({users}) => {
-    console.log("USERS >> ", users);
     return (
         <>
             <Card.Group className="Videos" itemsPerRow={3} stackable centered>

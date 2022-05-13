@@ -2,37 +2,66 @@ import './App.css';
 import React from 'react';
 import Home from './components/Home';
 import Animes from './components/Animes';
-import { Container } from "semantic-ui-react";
 import 'semantic-ui-css/semantic.min.css';
+import { Button, Icon, Label } from "semantic-ui-react";
+import { useLogin, useMenu } from "./hooks";
+import { Container } from "semantic-ui-react";
 import Webradios from './components/Webradios';
+import Formations from './components/Formations';
 import Audiotheque from './components/Audiotheque';
 import Conferences from './components/Conferences';
 import Documentaires from './components/Documentaires';
 import AudioBooks from './components/audiobooks/Theorie_economique';
+import ELeanings from './components/e-learning/ZTM_Ethereum_Blockchain';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
-  return (
-    <Router>
-        <div className="App">
-          <Switch>
-            {/* <Route exact path = '/' component = {Login}/> */}
-            <Route exact path = '/' component = {Home}/>
-            <Route path = '/animes' component = {Animes} />
-            <Route path = '/audiotheque' component = {Audiotheque} />
-            <Route path = '/documentaires' component = {Documentaires} />
-            <Route path = '/conferences' component = {Conferences} />
-            <Route path = '/audiobook/:book_ref' component = {AudioBooks} />
-            <Route path = '/radio/' component = {Webradios} />
+  const [renderMenu] = useMenu();
+  const [
+    isConnected,
+    setIsConnected,
+    web3Infos,
+    setWeb3Infos,
+    metamaskConnect
+  ] = useLogin();
 
-            {/* <Route path = 'series' component = {Series} />
-            <Route path = '/Film' component = {} />
-            <Route path = '' component = {} />
-            <Route path = '' component = {} /> */}
+  if (isConnected) {
+    return (
+      <Router>
+        <Container className="App">
+          {renderMenu()}
+          <Switch>
+            <Route exact path='/' component={Home} />
+            <Route path='/animes' component={Animes} />
+            <Route path='/radio/' component={Webradios} />
+            <Route path='/learning/' component={Formations} />
+            <Route path='/audiotheque' component={Audiotheque} />
+            <Route path='/conferences' component={Conferences} />
+            <Route path='/documentaires' component={Documentaires} />
+            <Route path='/audiobook/:book_ref' component={AudioBooks} />
+            <Route path='/e-learning/:course_ref' component={ELeanings} />
           </Switch>
-        </div>
+        </Container>
       </Router>
-  );
+    );
+  } else {
+    return (
+      <>
+        <Container className='login-page'>
+          <div className='login-card'>
+            <Button inverted className='login-button' onClick={metamaskConnect}>
+              Enter <Label corner color='teal'>  <Icon as={'h2'} name='ethereum'/> web3</Label>
+              <div className='login-button-text'>
+               <Icon circular color='red' disabled name='power'/>
+              </div>
+              <div><h3 className='login-title'>KEM'FLIX ☥</h3></div>
+            </Button>
+            <br /> <br />
+          </div>
+        </Container>
+      </>
+    );
+  }
 }
 
 export default App;

@@ -6,9 +6,8 @@ import { documentaires } from '../utils/videoLinks/documentairesLinks';
 const Documentaires = () => {
 
     return (
-        <>
+        <Container >
             <Card.Group className="Videos" itemsPerRow={3} stackable centered>
-
                 {documentaires.map((documentaire, index) => {
                     return (
                             <Video
@@ -25,8 +24,7 @@ const Documentaires = () => {
 
               
             </Card.Group>
-
-        </>
+        </Container>
     )
 }
 

@@ -1,54 +1,39 @@
 import VideoStore from './VideoStore';
-import { useForm } from 'react-hook-form';
+import { useLogin, useMenu } from "../hooks";
 import amzamt_image from '../images/Amzat_interview.png';
-import { Embed, Container, Segment } from 'semantic-ui-react';
-import { useAuth } from '../contexts/AuthContext';
-import { useState, useEffect } from 'react/cjs/react.development';
+import { Container, Segment, Button } from 'semantic-ui-react';
 
 const Home = () => {
+    const [ renderMenu ] = useMenu();
+    const [
+        isConnected,
+        setIsConnected,
+        web3Infos,
+        setWeb3Infos,
+        metamaskConnect
+    ] = useLogin();
 
-    const authContext = useAuth();
-
-    const {
-        register,
-        handleSubmit,
-    } = useForm();
-
-    const onSubmit = (data) => {
-        console.log(data);
-    }
-    const userInfos = authContext.user
-    console.log('user State in Storage : ', localStorage.getItem('isUserConnected'));
-    console.log("The context >> ", authContext);
-    console.log("UserInfos >> ", userInfos);
-
-    const [isUserConnected, setIsUserConnected] = useState(false);
-
-    useEffect(() => {
-        console.log('In Home, localStorage : ', localStorage.getItem)
-        if (localStorage.getItem('isUserConnected') === 'yes'){
-            setIsUserConnected(true);
-        }
-    }, []);
-
-    if (isUserConnected) {
+   if (isConnected === false) {
         return (
-            <div>
-                <VideoStore user = { userInfos }/>            
-            </div>
+            <Container className = 'login-page'>
+                    <div> <h2 className='login-title'>Welcome to Kem'Flix</h2></div>
+                <div className = 'login-card'>
+                        <Button inverted className = 'login-button' onClick = {metamaskConnect}>
+                            <div className='login-button-text'>Sign-In with Metamsk</div>
+                        </Button>
+                    <br /> <br />
+                </div>
+            </Container>
         );
     }
-    else {
-        return (
-            <>
-            <div>
-                You must be connected to access this page            
-            </div>
-            <button>Sign-in</button>
-            <button>Sign-up</button>
-            </>
-        );
-    }
+    console.log("ACCOUNTS", web3Infos)
+    return (
+        <div>
+            { renderMenu() }
+            {web3Infos.connectedAccount}
+            <VideoStore users = { web3Infos.accounts }/>            
+        </div>
+    );
 }
 
 export default Home

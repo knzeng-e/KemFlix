@@ -3,8 +3,8 @@ import Video from './Video';
 import { Card, Container, Divider, Header } from 'semantic-ui-react';
 import { documentaires } from '../utils/videoLinks/documentairesLinks';
 
-const Documentaires = ({user}) => {
-    console.log("USERS >> ", user);
+const VidoeStore = ({users}) => {
+    console.log("USERS >> ", users);
     return (
         <>
             <Card.Group className="Videos" itemsPerRow={3} stackable centered>
@@ -30,4 +30,4 @@ const Documentaires = ({user}) => {
     )
 }
 
-export default Documentaires;
+export default VidoeStore;

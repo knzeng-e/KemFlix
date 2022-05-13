@@ -5,7 +5,7 @@ import Animes from './components/Animes';
 import 'semantic-ui-css/semantic.min.css';
 import { Button, Icon, Label } from "semantic-ui-react";
 import { useLogin, useMenu } from "./hooks";
-import { Container } from "semantic-ui-react";
+import { Container, Message } from "semantic-ui-react";
 import Webradios from './components/Webradios';
 import Formations from './components/Formations';
 import Audiotheque from './components/Audiotheque';
@@ -13,7 +13,7 @@ import Conferences from './components/Conferences';
 import Documentaires from './components/Documentaires';
 import AudioBooks from './components/audiobooks/Theorie_economique';
 import ELeanings from './components/e-learning/ZTM_Ethereum_Blockchain';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 function App() {
   const [renderMenu] = useMenu();
@@ -22,7 +22,8 @@ function App() {
     setIsConnected,
     web3Infos,
     setWeb3Infos,
-    metamaskConnect
+    metamaskConnect,
+    hasMetamask,
   ] = useLogin();
 
   if (isConnected) {
@@ -45,22 +46,38 @@ function App() {
       </Router>
     );
   } else {
-    return (
-      <>
+    if (hasMetamask) {
+      return (
         <Container className='login-page'>
           <div className='login-card'>
             <Button inverted className='login-button' onClick={metamaskConnect}>
-              Enter <Label corner color='teal'>  <Icon as={'h2'} name='ethereum'/> web3</Label>
+              Enter <Label corner color='teal'>  <Icon as={'h2'} name='ethereum' /> web3</Label>
               <div className='login-button-text'>
-               <Icon circular color='red' disabled name='power'/>
+                <Icon circular color='red' disabled name='power' />
               </div>
               <div><h3 className='login-title'>KEM'FLIX ☥</h3></div>
             </Button>
             <br /> <br />
           </div>
         </Container>
-      </>
-    );
+      );
+    } else {
+      return (
+        <Container className='login-page'>
+          <Message >
+            <Label attached='top' active ><div className='web3-error'>WEB 3 Error</div></Label>
+            <Message.Header >
+            </Message.Header>
+            <Message.Content>
+              <a className='login-card' href='https://metamask.io/' target="_blank" rel="noreferrer">
+                Web3 Site : You need Metamask plugin to Log ..
+              </a>
+            </Message.Content>
+          </Message>
+          <br /> <br />
+        </Container>
+      );
+    }
   }
 }
 

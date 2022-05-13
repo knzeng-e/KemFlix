@@ -199,3 +199,9 @@
   margin: 2.1rem !important;
   cursor: pointer;
 }
+
+.web3-error {
+  text-align: center;
+  background: linear-gradient(#980505f8, #f31111, #ff2d2d) !important;
+  color: white;
+}

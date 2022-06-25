@@ -6,13 +6,14 @@ import { rubriques, renderPage } from "../utils/layoutUtils";
 
 const Account = ({ address }) => {
     const [showFullAddress, setShowFullAddress] = useState(false);
+    const [currentUser, setCurrentUser] = useState('Th0t Nz1g');
 
     const toggleAddress = () => setShowFullAddress(!showFullAddress);
     return (
         <Card>
             <Card.Header className="userName">
                 {/* TO DO: Retrieve User from Backend */}
-                Th0t Nz1g
+                {currentUser}
             </Card.Header>
             <Card.Content className="label-user">
                 <Icon circular size="large" name="user circle" />

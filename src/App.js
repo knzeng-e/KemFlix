@@ -1,74 +1,84 @@
 import './App.css';
 import React from 'react';
 import Home from './components/Home';
-import Login from './components/Login';
 import Animes from './components/Animes';
 import 'semantic-ui-css/semantic.min.css';
-import { useState, useContext } from 'react';
+import { Button, Icon, Label } from "semantic-ui-react";
+import { useLogin, useMenu } from "./hooks";
+import { Container, Message } from "semantic-ui-react";
 import Webradios from './components/Webradios';
-import { useAuth } from './contexts/AuthContext';
-import { Segment, Menu } from 'semantic-ui-react';
+import Formations from './components/Formations';
 import Audiotheque from './components/Audiotheque';
 import Conferences from './components/Conferences';
-import { AuthProvider } from './contexts/AuthContext';
 import Documentaires from './components/Documentaires';
-import { renderPage, rubriques } from './utils/layoutUtils';
 import AudioBooks from './components/audiobooks/Theorie_economique';
+import ELeanings from './components/e-learning/ZTM_Ethereum_Blockchain';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 function App() {
-  const [activeItem, setActiveItem] = useState('home');
-  const [isConnected, setIsConnected] = useState(true);
-  const displayMenu = () => {
-    if (isConnected){
-        return   (
-          <Segment className='Navbar' size='large'>
-          <h1><Link className='SiteTitle' to='/'>Kem'Flix</Link></h1>
-          <Menu pointing secondary stackable>
-            {rubriques.map(onglet => {
-              return (
-                <Link to = {renderPage(onglet)}>
-                  <Menu.Item
-                    className='Menu'
-                    name = {onglet}
-                    active = {activeItem === onglet}
-                    onClick = {
-                      () => {
-                        setActiveItem(onglet);
-                      }
-                    }
-                  />
-                </Link>
-              )
-            })}
-          </Menu>
-      </Segment>)
+  const [renderMenu] = useMenu();
+  const [
+    isConnected,
+    setIsConnected,
+    web3Infos,
+    setWeb3Infos,
+    metamaskConnect,
+    hasMetamask,
+  ] = useLogin();
+
+  if (isConnected) {
+    return (
+      <Router>
+        <Container className="App">
+          {renderMenu()}
+          <Switch>
+            <Route exact path='/' component={Home} />
+            <Route path='/animes' component={Animes} />
+            <Route path='/radio/' component={Webradios} />
+            <Route path='/learning/' component={Formations} />
+            <Route path='/audiotheque' component={Audiotheque} />
+            <Route path='/conferences' component={Conferences} />
+            <Route path='/documentaires' component={Documentaires} />
+            <Route path='/audiobook/:book_ref' component={AudioBooks} />
+            <Route path='/e-learning/:course_ref' component={ELeanings} />
+          </Switch>
+        </Container>
+      </Router>
+    );
+  } else {
+    if (window.ethereum) {
+      return (
+        <Container className='login-page'>
+          <div className='login-card'>
+            <Button inverted className='login-button' onClick={metamaskConnect}>
+              Enter <Label corner color='teal'>  <Icon as={'h2'} name='ethereum' /> web3</Label>
+              <div className='login-button-text'>
+                <Icon circular color='red' disabled name='power' />
+              </div>
+              <div><h3 className='login-title'>KEM'FLIX ☥</h3></div>
+            </Button>
+            <br /> <br />
+          </div>
+        </Container>
+      );
+    } else {
+      return (
+        <Container className='login-page'>
+          <Message >
+            <Label attached='top' active ><div className='web3-error'>WEB 3 Error</div></Label>
+            <Message.Header >
+            </Message.Header>
+            <Message.Content>
+              <a className='login-card' href='https://metamask.io/' target="_blank" rel="noreferrer">
+                Web3 Site : You need Metamask plugin to Login ..
+              </a>
+            </Message.Content>
+          </Message>
+          <br /> <br />
+        </Container>
+      );
     }
   }
-  return (
-    <div className="App">
-      <Router>
-        <AuthProvider>
-          { displayMenu() }
-          <Switch>
-            <Route exact path = '/' component = {Login}/>
-            <Route path = '/home' component = {Home}/>
-            <Route path = '/animes' component = {Animes} />
-            <Route path = '/audiotheque' component = {Audiotheque} />
-            <Route path = '/documentaires' component = {Documentaires} />
-            <Route path = '/conferences' component = {Conferences} />
-            <Route path = '/audiobook/:book_ref' component = {AudioBooks} />
-            <Route path = '/radio/' component = {Webradios} />
-
-            {/* <Route path = 'series' component = {Series} />
-            <Route path = '/Film' component = {} />
-            <Route path = '' component = {} />
-            <Route path = '' component = {} /> */}
-          </Switch>
-        </AuthProvider>
-      </Router>
-    </div>
-  );
 }
 
 export default App;

@@ -1,14 +1,13 @@
 import React from 'react';
 import Video from './Video';
-import { Card, Container, Divider, Header } from 'semantic-ui-react';
+import { Card, Container } from 'semantic-ui-react';
 import { documentaires } from '../utils/videoLinks/documentairesLinks';
 
 const Documentaires = () => {
 
     return (
-        <>
+        <Container >
             <Card.Group className="Videos" itemsPerRow={3} stackable centered>
-
                 {documentaires.map((documentaire, index) => {
                     return (
                             <Video
@@ -25,8 +24,7 @@ const Documentaires = () => {
 
               
             </Card.Group>
-
-        </>
+        </Container>
     )
 }
 

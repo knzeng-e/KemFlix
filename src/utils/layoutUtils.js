@@ -16,18 +16,16 @@ const renderPage = (activePage) => {
       return '/conferences'
     case 'Web-radios':
       return '/radio'
+    case 'Formations':
+      return '/learning'
     default: return '/'
   }
 }
 
-// const rubriques = [
-//     'Accueil', 'Series', 'Animes', 'Films', 'Documentaires', 'Clips'
-// ]
-
 const rubriques = [
-  'Documentaires', 'Conferences','Audiotheque', 'Web-radios'
+  'Documentaires', 'Conferences', 'Formations', 'Audiotheque', 'Web-radios',
 ]
 module.exports = {
   renderPage,
   rubriques
-}
+};

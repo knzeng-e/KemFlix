@@ -11,8 +11,8 @@ const Account = ({ address }) => {
     return (
         <Card>
             <Card.Header className="userName">
-                //TODO: Retrieve Users infos from backend
-                Th0t Nz1
+                {/* TO DO: Retrieve User from Backend */}
+                Th0t Nz1g
             </Card.Header>
             <Card.Content className="label-user">
                 <Icon circular size="large" name="user circle" />

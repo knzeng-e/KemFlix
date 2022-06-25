@@ -207,7 +207,8 @@
 }
 
 .userAddress :hover{
-  background: linear-gradient(#b5b4b4, #ffffff, #929090, #121212) !important;
+  background: linear-gradient(rgba(234, 234, 234, 0.683), rgb(255, 255, 255), rgb(187, 187, 187), rgb(63, 63, 66)) !important;
+  /* background: linear-gradient(#b5b4b4, #ffffff, #929090, #121212) !important; */
 }
 
 .userName {

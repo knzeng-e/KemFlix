@@ -1,17 +1,29 @@
 import { useLogin } from "./useLogin";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Segment, Menu, Label } from "semantic-ui-react";
+import { Segment, Menu, Label, Icon, Card } from "semantic-ui-react";
 import { rubriques, renderPage } from "../utils/layoutUtils";
 
 const Account = ({ address }) => {
+    const [showFullAddress, setShowFullAddress] = useState(false);
+    const [currentUser, setCurrentUser] = useState('Th0t Nz1g');
+
+    const toggleAddress = () => setShowFullAddress(!showFullAddress);
     return (
-        <>
-            <Label active tag className="label-user" size="small">
-                {address}
-                user
-            </Label>
-        </>
+        <Card>
+            <Card.Header className="userName">
+                {/* TO DO: Retrieve User from Backend */}
+                {currentUser}
+            </Card.Header>
+            <Card.Content className="label-user">
+                <Icon circular size="large" name="user circle" />
+            </Card.Content>
+            <Card.Description className="userAddress">
+                <div onClick={toggleAddress}>
+                    {showFullAddress ? address : `${address.substr(0, 6)} ... ${address.substr(address.length - 5)}`}
+                </div>
+            </Card.Description>
+        </Card>
     );
 }
 

@@ -28,12 +28,12 @@ describe('DiamondTest', async function () {
     ownershipFacet = await ethers.getContractAt('OwnershipFacet', diamondAddress)
   })
 
-  it('should have three facets -- call to facetAddresses function', async () => {
+  it('should have four facets -- call to facetAddresses function', async () => {
     for (const address of await diamondLoupeFacet.facetAddresses()) {
       addresses.push(address)
     }
 
-    assert.equal(addresses.length, 3)
+    assert.equal(addresses.length, 4)
   })
 
   it('facets should have the right function selectors -- call to facetFunctionSelectors function', async () => {
@@ -86,12 +86,12 @@ describe('DiamondTest', async function () {
     }
     result = await diamondLoupeFacet.facetFunctionSelectors(test1Facet.address)
     assert.sameMembers(result, selectors)
-  })
+  });
 
   it('should test function call', async () => {
     const test1Facet = await ethers.getContractAt('Test1Facet', diamondAddress)
     await test1Facet.test1Func10()
-  })
+  });
 
   it('should replace supportsInterface function', async () => {
     const Test1Facet = await ethers.getContractFactory('Test1Facet')

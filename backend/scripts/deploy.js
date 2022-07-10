@@ -1,6 +1,8 @@
 /* global ethers */
 /* eslint prefer-const: "off" */
 
+const { facetNames, waitFacetMining, getFacetArtifact } = require("./utils/facetsUtils")
+
 const { getSelectors, FacetCutAction } = require('./libraries/diamond.js')
 
 async function deployDiamond () {
@@ -27,29 +29,29 @@ async function deployDiamond () {
   await diamondInit.deployed()
   console.log('DiamondInit deployed:', diamondInit.address)
 
-  // deploy facets
-  console.log('')
-  console.log('Deploying facets')
-  const FacetNames = [
-    'DiamondLoupeFacet',
-    'OwnershipFacet'
-  ]
+  /** Facets deployment */
+  console.log('\nDeploying facets');
+
   const cut = []
-  for (const FacetName of FacetNames) {
-    const Facet = await ethers.getContractFactory(FacetName)
-    const facet = await Facet.deploy()
-    await facet.deployed()
-    console.log(`${FacetName} deployed: ${facet.address}`)
-    cut.push({
-      facetAddress: facet.address,
+
+  for (const facetName of facetNames) {
+    const facet = await getFacetArtifact(facetName);
+
+    const deployedFacet = await facet.deploy();
+    await waitFacetMining(deployedFacet);
+
+    console.log(`${facetName} deployed: ${deployedFacet.address}`)
+    const newFacetCut = {
+      facetAddress: deployedFacet.address,
       action: FacetCutAction.Add,
-      functionSelectors: getSelectors(facet)
-    })
+      functionSelectors: getSelectors(deployedFacet)
+    };
+
+    cut.push(newFacetCut);
   }
 
   // upgrade diamond with facets
-  console.log('')
-  console.log('Diamond Cut:', cut)
+  console.log('\nDiamond Cut:', cut)
   const diamondCut = await ethers.getContractAt('IDiamondCut', diamond.address)
   let tx
   let receipt

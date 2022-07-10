@@ -14,20 +14,19 @@ contract MembershipFacet {
         LibDiamond.DiamondStorage storage ds = LibDiamond.diamondStorage();
         
         require(
-            ds.isMember[msg.sender] == false && 
-            ds.loginToAddress[_login] == address(0) &&
+            ds.isMember[msg.sender] == false &&
             ds.addressToLogin[msg.sender] == bytes32(0),
             "already registered"
         );
         ds.isMember[msg.sender] = true;
-        ds.loginToAddress[_login] = msg.sender;
         ds.addressToLogin[msg.sender] = _login;
     }
 
-    function checkMembership() external view returns(bool) {
+    function checkMembership() external view returns(bool isMember, bytes32 userName) {
         LibDiamond.DiamondStorage storage ds = LibDiamond.diamondStorage();
 
-        return ds.isMember[msg.sender]; 
+        isMember = ds.isMember[msg.sender];
+        userName = ds.addressToLogin[msg.sender];
     }
 
     function revokeMembership() external onlyMember {

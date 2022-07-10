@@ -20,6 +20,14 @@ module.exports = {
     }
   },
   networks: {
+    VOLTA: {
+      // url: "https://volta-rpc.energyweb.org",
+      url: "https://volta-archive-rpc.energyweb.org",
+      accounts: [process.env.PLATFORMOWNER_PK],//Input the private key here
+      chainID: 73799,
+      // gasPrice: 1000000000,
+      timeout: 260000
+    },
     ropsten: {
       url: process.env.ROPSTEN_URL || '',
       accounts:

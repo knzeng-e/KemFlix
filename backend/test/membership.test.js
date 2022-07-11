@@ -12,8 +12,6 @@ const { deployMockContract } = require("@ethereum-waffle/mock-contract");
 const { deployContract, loadFixture, MockProvider, solidity } = require("ethereum-waffle");
 const { ethers } = require('hardhat');
 
-const {Wallet} = require("ethers")
-
 use(solidity);
 
 describe('MembershipFacet Tests', () => {
@@ -21,12 +19,10 @@ describe('MembershipFacet Tests', () => {
     let receipt;
     let userNameTest;
     let diamondAddress;
-    let membershipFacet;
 
     const fixture = async (
         wallets
     ) => {
-        const  [user1, user2, user3, user4 ] = wallets;
         diamondAddress = await deployDiamond();
 
         const signer1 = (await ethers.getSigners())[1]
@@ -69,7 +65,7 @@ describe('MembershipFacet Tests', () => {
     });
 
     it("Prevent from double registeration", async () => {
-        const { asUser1, asUser2 } = await loadFixture(fixture);
+        const { asUser1 } = await loadFixture(fixture);
         userNameTest = ethers.utils.formatBytes32String("nzeng");
 
         await expect(asUser1.register(userNameTest)).to.be.revertedWith("already registered");

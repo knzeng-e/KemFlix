@@ -1,8 +1,23 @@
 import "firebase/app";
+import { ethers } from "ethers";
 import { useHistory } from "react-router";
 import VideoStore from '../components/VideoStore';
-import React, { createContext, useContext, useEffect, useState } from 'react';
 import { connectAuthEmulator } from "firebase/auth";
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import * as MembershipContract from "../artifacts/contracts/facets/MembershipFacet.sol/MembershipFacet.json"
+
+const isRegistered = async (userAddress, provider) => {
+    console.log("Contract Interface", MembershipContract["abi"]);
+    const _provider = new ethers.providers.JsonRpcProvider("https://volta-archive-rpc.energyweb.org");
+    console.log("Provider inspection :: ", _provider);
+    const membershipContract = new ethers.Contract("0xB85bFa461FB3c97dB2796Fc5d7a63c3643e3eE35", MembershipContract["abi"], _provider);
+    
+    const memberStatus = await membershipContract.checkMembership();
+
+    console.log("IsMember status: ", memberStatus);
+
+    return memberStatus["isMember"];
+}
 
 export const useLogin = () => {
 
@@ -37,13 +52,16 @@ export const useLogin = () => {
 
     useEffect(() => {
         console.log('Ethereum object ::: ', window.ethereum);
+
         if (window.ethereum && window.ethereum.selectedAddress && isConnected === false) {
-            setIsConnected(true);
-            setWeb3Infos({
-                ...web3Infos,
-                chainId: window.ethereum.chainId,
-                connectedAccount: window.ethereum.selectedAddress
-            });
+            if (isRegistered(window.ethereum.selectedAddress, window.ethereum)){
+                setIsConnected(true);
+                setWeb3Infos({
+                    ...web3Infos,
+                    chainId: window.ethereum.chainId,
+                    connectedAccount: window.ethereum.selectedAddress
+                });
+            }
         };
     });
 
@@ -59,6 +77,13 @@ export const useLogin = () => {
         window.ethereum.on('chainChanged', (chainId) => {
             console.log('Chain changed ..')
             window.location.reload();
+        });
+
+        window.ethereum.on('disconnect', (infos) => {
+            setWeb3Infos({});
+            setIsConnected(false);
+            window.location.reload();
+            console.log("ETHEREUM OBJ :: ", window.ethereum._state.accounts);
         });
     };
     return [

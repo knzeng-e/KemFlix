@@ -17,7 +17,8 @@ module.exports = {
     optimizer: {
       enabled: true,
       runs: 200
-    }
+    },
+    
   },
   networks: {
     VOLTA: {
@@ -40,6 +41,9 @@ module.exports = {
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_API_KEY
+  },
+  paths: {
+    artifacts: "../src/artifacts"
   }
 }
 

@@ -1,10 +1,10 @@
 import './App.css';
-import React from 'react';
+import { useEffect, useState } from 'react';
 import Home from './components/Home';
 import Animes from './components/Animes';
 import 'semantic-ui-css/semantic.min.css';
 import { Button, Icon, Label } from "semantic-ui-react";
-import { useLogin, useMenu } from "./hooks";
+import { useLogin, useMenu, useSignup } from "./hooks";
 import { Container, Message } from "semantic-ui-react";
 import Webradios from './components/Webradios';
 import Formations from './components/Formations';
@@ -17,6 +17,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 function App() {
   const [renderMenu] = useMenu();
+  const [hasAccess, setHasAccess] = useState(false);
   const [
     isConnected,
     setIsConnected,
@@ -25,26 +26,50 @@ function App() {
     metamaskConnect,
     hasMetamask,
   ] = useLogin();
+  const [isUserRegistered] = useSignup();
+
+  useEffect(() => {
+    if (isUserRegistered) {
+      setHasAccess(true);
+    }
+  }, [isUserRegistered]);
 
   if (isConnected) {
-    return (
-      <Router>
-        <Container className="App">
-          {renderMenu()}
-          <Switch>
-            <Route exact path='/' component={Home} />
-            <Route path='/animes' component={Animes} />
-            <Route path='/radio/' component={Webradios} />
-            <Route path='/learning/' component={Formations} />
-            <Route path='/audiotheque' component={Audiotheque} />
-            <Route path='/conferences' component={Conferences} />
-            <Route path='/documentaires' component={Documentaires} />
-            <Route path='/audiobook/:book_ref' component={AudioBooks} />
-            <Route path='/e-learning/:course_ref' component={ELeanings} />
-          </Switch>
+    if (hasAccess){
+      return (
+        <Router>
+          <Container className="App">
+            {renderMenu()}
+            <Switch>
+              <Route exact path='/' component={Home} />
+              <Route path='/animes' component={Animes} />
+              <Route path='/radio/' component={Webradios} />
+              <Route path='/learning/' component={Formations} />
+              <Route path='/audiotheque' component={Audiotheque} />
+              <Route path='/conferences' component={Conferences} />
+              <Route path='/documentaires' component={Documentaires} />
+              <Route path='/audiobook/:book_ref' component={AudioBooks} />
+              <Route path='/e-learning/:course_ref' component={ELeanings} />
+            </Switch>
+          </Container>
+        </Router>
+      );
+    } else {
+      return (
+        <Container className='login-page'>
+          <div className='login-card'>
+            <Button inverted className='login-button' onClick={() => {console.log("Registering the user in smartCntract")}}>
+              Welcome to KemFlix <Label corner color='teal'>  <Icon as={'h2'} name='ethereum' /> web3</Label>
+              <div className='login-button-text'>
+                <Icon circular color='red' disabled name='power' />
+              </div>
+              <div><h3 className='login-title'>Please Register</h3></div>
+            </Button>
+            <br /> <br />
+          </div>
         </Container>
-      </Router>
-    );
+      );
+    }
   } else {
     if (window.ethereum) {
       return (

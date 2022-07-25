@@ -15,7 +15,7 @@ const Signup = ({ userAddress }) => {
                 {/* <Segment inverted color='teal' padded='very'> */}
                 <Segment inverted color='teal'>
                     <Header>
-                    <Icon name='address card'/>
+                        <Icon name='address card' />
                         Create an account
                     </Header>
                 </Segment>
@@ -28,37 +28,44 @@ const Signup = ({ userAddress }) => {
                 <Segment raised padded='very'>
                     <Form >
                         <Form.Group widths='equal'>
-                            <Form.Field>
-                                <input  placeholder='First name' required/>
+                            <Form.Field required>
+                                <label>First name</label>
+                                <input placeholder='Enter your first name' />
                             </Form.Field>
-                            <Form.Field>
-                                <input  placeholder='Last name' required/>
+                            <Form.Field required>
+                                <label>First name</label>
+                                <input placeholder='Enter your last name' required />
                             </Form.Field>
                         </Form.Group >
 
                         <Form.Group widths='equal'>
 
-                            <Form.Field>
-                                {/* <label>User Name</label> */}
-                                <input placeholder='User Name' required/>
+                            <Form.Field required>
+                                <label>user name</label>
+                                <input placeholder='Choose a user name' />
                             </Form.Field>
 
-                            <Form.Field>
-                                {/* <label>Email</label> */}
-                                <input type='email' placeholder='Email' required/>
+                            <Form.Field required>
+                                <label>Email</label>
+                                <input type='email' placeholder='Enter your email' />
                             </Form.Field>
                         </Form.Group>
                         <Form.Select
-                            fluid
+                            required
                             options={options}
-                            placeholder='Gender'
+                            placeholder='Select your gender'
+                            label="Gender"
                         />
                     </Form>
                 </Segment>
                 <Segment>
-                    <Form.Field>
-                        <Checkbox label='I agree to the Terms and Conditions' />
+                    <Form.Field required>
+                        <Checkbox
+                            inline
+                            label='I agree to the Terms and Conditions'
+                        />
                     </Form.Field>
+
                     <Form.Field className='login-card'>
                         <Button inverted className='login-button' type='submit'>Submit</Button>
                     </Form.Field>

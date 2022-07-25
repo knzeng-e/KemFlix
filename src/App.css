@@ -46,6 +46,14 @@
 
 }
 
+.SignUp-form {
+  color: teal;
+  font-weight: bold !important;
+  text-align: center;
+  width: 42% !important;
+  margin: 15rem;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

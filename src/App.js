@@ -11,6 +11,7 @@ import Formations from './components/Formations';
 import Audiotheque from './components/Audiotheque';
 import Conferences from './components/Conferences';
 import Documentaires from './components/Documentaires';
+import Signup from './components/Authentication/Signup';
 import AudioBooks from './components/audiobooks/Theorie_economique';
 import ELeanings from './components/e-learning/ZTM_Ethereum_Blockchain';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
@@ -56,18 +57,19 @@ function App() {
       );
     } else {
       return (
-        <Container className='login-page'>
-          <div className='login-card'>
-            <Button inverted className='login-button' onClick={() => {console.log("Registering the user in smartCntract")}}>
-              Welcome to KemFlix <Label corner color='teal'>  <Icon as={'h2'} name='ethereum' /> web3</Label>
-              <div className='login-button-text'>
-                <Icon circular color='red' disabled name='power' />
-              </div>
-              <div><h3 className='login-title'>Please Register</h3></div>
-            </Button>
-            <br /> <br />
-          </div>
-        </Container>
+        // <Container className='login-page'>
+        //   <div className='login-card'>
+        //     <Button inverted className='login-button' onClick={() => {console.log("Registering the user in smartCntract")}}>
+        //       Welcome to KemFlix <Label corner color='teal'>  <Icon as={'h2'} name='ethereum' /> web3</Label>
+        //       <div className='login-button-text'>
+        //         <Icon circular color='red' disabled name='power' />
+        //       </div>
+        //       <div><h3 className='login-title'>Please Register</h3></div>
+        //     </Button>
+        //     <br /> <br />
+        //   </div>
+        // </Container>
+        <Signup userAddress={web3Infos.connectedAccount}/>
       );
     }
   } else {

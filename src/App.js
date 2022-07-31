@@ -11,7 +11,7 @@ import Formations from './components/Formations';
 import Audiotheque from './components/Audiotheque';
 import Conferences from './components/Conferences';
 import Documentaires from './components/Documentaires';
-import Signup from './components/Authentication/Signup';
+import SignupForm from './components/Authentication/SignupForm';
 import AudioBooks from './components/audiobooks/Theorie_economique';
 import ELeanings from './components/e-learning/ZTM_Ethereum_Blockchain';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
@@ -36,7 +36,7 @@ function App() {
   }, [isUserRegistered]);
 
   if (isConnected) {
-    if (hasAccess){
+    if (hasAccess) {
       return (
         <Router>
           <Container className="App">
@@ -57,19 +57,7 @@ function App() {
       );
     } else {
       return (
-        // <Container className='login-page'>
-        //   <div className='login-card'>
-        //     <Button inverted className='login-button' onClick={() => {console.log("Registering the user in smartCntract")}}>
-        //       Welcome to KemFlix <Label corner color='teal'>  <Icon as={'h2'} name='ethereum' /> web3</Label>
-        //       <div className='login-button-text'>
-        //         <Icon circular color='red' disabled name='power' />
-        //       </div>
-        //       <div><h3 className='login-title'>Please Register</h3></div>
-        //     </Button>
-        //     <br /> <br />
-        //   </div>
-        // </Container>
-        <Signup userAddress={web3Infos.connectedAccount}/>
+        <SignupForm userAddress={web3Infos.connectedAccount}/>
       );
     }
   } else {
@@ -78,11 +66,11 @@ function App() {
         <Container className='login-page'>
           <div className='login-card'>
             <Button inverted className='login-button' onClick={metamaskConnect}>
-              Enter <Label corner color='teal'>  <Icon as={'h2'} name='ethereum' /> web3</Label>
+            KEMFLIX <Label corner color='teal'>  <Icon as={'h2'} name='ethereum' /> web3</Label>
               <div className='login-button-text'>
                 <Icon circular color='red' disabled name='power' />
               </div>
-              <div><h3 className='login-title'>KEM'FLIX ☥</h3></div>
+              <div><h3 className='login-title'></h3>Bokayé</div>
             </Button>
             <br /> <br />
           </div>

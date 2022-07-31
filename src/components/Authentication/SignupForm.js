@@ -1,0 +1,164 @@
+import React, { useEffect, useState } from "react";
+import {
+  Container,
+  Form,
+  Icon,
+  Label,
+  Segment,
+  Checkbox,
+  Button,
+  Divider,
+  Header,
+  Message,
+} from "semantic-ui-react";
+
+const Signup = ({ userAddress }) => {
+  const [email, setEmail] = useState("");
+  const [gender, setGender] = useState("");
+  const [lastName, setlastName] = useState("");
+  const [userName, setuserName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [agreementStatus, setAgreementStatus] = useState(false);
+  const [errorMessage, setErrormessage] = useState("");
+
+  const GENDER_SELECTION_ERROR = "Please select your gender";
+  const TERMS_AND_CONDITION_ERROR = "You need to read and accept terms and conditions";
+
+  const handleSignup = (e) => {
+    console.log("Signing Up");
+    console.log(`firstName:  ${firstName}`);
+    console.log(`lastName:  ${lastName}`);
+    console.log(`userName:  ${userName}`);
+    console.log(`Email:  ${email}`);
+    console.log(`Gender:  ${gender}`);
+    console.log(`Has agreed:  ${agreementStatus}`);
+    if (gender === "") {
+      setErrormessage(GENDER_SELECTION_ERROR);
+    } else if (!agreementStatus) {
+      setErrormessage(TERMS_AND_CONDITION_ERROR);
+    } else {
+      if (errorMessage.length) {
+        setErrormessage("");
+      }
+    }
+  };
+
+  const handleLastName = (e) => {
+    setlastName(e.target.value);
+  };
+  const handleUsername = (e) => {
+    setuserName(e.target.value);
+  };
+
+  const handleFirstName = (e) => {
+    setFirstName(e.target.value);
+  };
+  const handleMail = (e) => {
+    setEmail(e.target.value);
+  };
+  const handleAgreement = (e) => {
+    setAgreementStatus((current) => {
+      return !current;
+    });
+  };
+
+  const handleGender = (e) => {
+    setGender(e.target.outerText);
+    console.log(e.target.outerText);
+  };
+
+  const options = [
+    { key: "f", text: "Female", value: "female" },
+    { key: "m", text: "Male", value: "male" },
+    { key: "o", text: "Other", value: "other" },
+  ];
+
+  return (
+    <Container className="SignUp-form">
+      <Segment.Group>
+        {/* <Segment inverted color='teal' padded='very'> */}
+        <Segment inverted color="teal" padded='very'>
+          <Header title="Decline your ID">
+            <Icon name="address card" />
+            KOMBO
+          </Header>
+        </Segment>
+        <Segment>
+          <Label pointing="right">Your blockchain address</Label>
+          {userAddress}
+        </Segment>
+        <Segment>
+          {errorMessage.length !== 0 && (
+            <Message header="" error={true} content={errorMessage} />
+          )}
+          <Form onSubmit={handleSignup}>
+            <Segment basic padded="very">
+              <Form.Group widths="equal">
+                <Form.Field required>
+                  <label>First name</label>
+                  <input
+                    onChange={handleFirstName}
+                    placeholder="Enter your first name"
+                    required
+                  />
+                </Form.Field>
+                <Form.Field required>
+                  <label>Last name</label>
+                  <input
+                    onChange={handleLastName}
+                    placeholder="Enter your last name"
+                    required
+                  />
+                </Form.Field>
+              </Form.Group>
+
+              <Form.Group widths="equal">
+                <Form.Field required>
+                  <label>user name</label>
+                  <input
+                    onChange={handleUsername}
+                    placeholder="Choose a user name"
+                    required
+                  />
+                </Form.Field>
+
+                <Form.Field required>
+                  <label>Email</label>
+                  <input
+                    onChange={handleMail}
+                    type="email"
+                    placeholder="Enter your email"
+                    required
+                  />
+                </Form.Field>
+              </Form.Group>
+              <Form.Select
+                options={options}
+                placeholder="Select your gender"
+                label="Gender"
+                onChange={handleGender}
+              />
+            </Segment>
+
+            <Segment basic>
+              {/* TO-DO: Write and link terms and conditions */}
+              <Form.Field>
+                <Checkbox
+                  onChange={handleAgreement}
+                  label="I agree to the Terms and Conditions"
+                />
+              </Form.Field>
+              <Form.Field className="login-card">
+                <Button inverted className="login-button" type="submit">
+                  Bassé
+                </Button>
+              </Form.Field>
+            </Segment>
+          </Form>
+        </Segment>
+      </Segment.Group>
+    </Container>
+  );
+};
+
+export default Signup;

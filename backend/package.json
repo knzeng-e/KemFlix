@@ -5,7 +5,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "npx hardhat test"
+    "test": "npx hardhat test",
+    "deploy:volta": "npx hardhat run scripts/deploy.js --network volta"
   },
   "homepage": "https://github.com/mudgen/contracts-starter#readme",
   "repository": {

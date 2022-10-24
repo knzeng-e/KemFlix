@@ -177,11 +177,12 @@
 
 .login-card {
   margin-top: 2%;
+  cursor: pointer;
+  color: rgb(71, 4, 4) !important;
 }
 
 .login-card :hover{
-  margin-top: 2%;
-  color: rgb(255, 128, 0) !important;
+  color: rgb(255, 132, 9) !important;
 }
 
 .login-button {

@@ -38,17 +38,14 @@ export const useLogin = () => {
     }
 
     useEffect(() => {
-        console.log('Ethereum object ::: ', window.ethereum);
 
         if (window.ethereum && window.ethereum.selectedAddress && isConnected === false) {
             setIsConnected(true);
             setWeb3Infos({
                 ...web3Infos,
                 chainId: window.ethereum.chainId,
-                connectedAccount: window.ethereum.selectedAddress
+                connectedAccount: window.ethereum.selectedAddress,
             });
-            // if (isRegistered(window.ethereum.selectedAddress, window.ethereum)){
-            // }
         };
     });
 
@@ -79,6 +76,6 @@ export const useLogin = () => {
         web3Infos,
         // isRegistered,
         setWeb3Infos,
-        metamaskConnect,
+        metamaskConnect
     ];
 }

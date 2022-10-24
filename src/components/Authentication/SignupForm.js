@@ -1,4 +1,6 @@
+import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
+
 import {
   Container,
   Form,
@@ -11,15 +13,20 @@ import {
   Header,
   Message,
 } from "semantic-ui-react";
+import { useLogin } from "../../hooks";
+import * as MembershipContract from "../../artifacts/contracts/facets/MembershipFacet.sol/MembershipFacet.json"
 
-const Signup = ({ userAddress }) => {
+
+const Signup = ({ userAddress, web3Infos }) => {
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("");
   const [lastName, setlastName] = useState("");
   const [userName, setuserName] = useState("");
   const [firstName, setFirstName] = useState("");
   const [agreementStatus, setAgreementStatus] = useState(false);
-  const [errorMessage, setErrormessage] = useState("");
+  const [ errorMessage, setErrormessage ] = useState("");
+  const [ registration, setRegistration ] = useState(false);
+  const [isConnected] = useLogin();
 
   const GENDER_SELECTION_ERROR = "Please select your gender";
   const TERMS_AND_CONDITION_ERROR = "You need to read and accept terms and conditions";
@@ -40,6 +47,7 @@ const Signup = ({ userAddress }) => {
       if (errorMessage.length) {
         setErrormessage("");
       }
+      setRegistration(true);
     }
   };
 
@@ -73,10 +81,28 @@ const Signup = ({ userAddress }) => {
     { key: "o", text: "Other", value: "other" },
   ];
 
+  useEffect(() => {
+    const registerUser = async () => {
+      
+      const _provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = _provider.getSigner();
+
+      const membershipContract = new ethers.Contract("0xB85bFa461FB3c97dB2796Fc5d7a63c3643e3eE35", MembershipContract[ "abi" ], signer);
+
+      const formatedUserName = ethers.utils.formatBytes32String(userName);
+      const tx = await membershipContract.register(formatedUserName);
+      setRegistration(false);
+      console.log("Registering user :: ", formatedUserName, tx)
+    }
+
+    if (registration && isConnected) {
+      registerUser()
+    }
+  },[registration, isConnected, userName]);
+
   return (
     <Container className="SignUp-form">
       <Segment.Group>
-        {/* <Segment inverted color='teal' padded='very'> */}
         <Segment inverted color="teal" padded='very'>
           <Header title="Decline your ID">
             <Icon name="address card" />

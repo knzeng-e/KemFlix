@@ -18,13 +18,12 @@ export const useSignup = () => {
     if (isConnected) {
         ckeckRegistration(web3Infos.connectedAccount);
     }
-}, [isConnected, web3Infos.connectedAccount]);
+}, [isConnected, web3Infos.connectedAccount, web3Infos.provider]);
 
   const isRegistered = async (userAddress, provider) => {
-    console.log("Contract Interface", MembershipContract["abi"]);
-    const _provider = new ethers.providers.JsonRpcProvider("https://volta-archive-rpc.energyweb.org");
-    console.log("Provider inspection :: ", _provider);
-    const membershipContract = new ethers.Contract("0xB85bFa461FB3c97dB2796Fc5d7a63c3643e3eE35", MembershipContract["abi"], _provider);
+
+    const _provider = new ethers.providers.Web3Provider(window.ethereum);
+    const membershipContract = new ethers.Contract("0xB85bFa461FB3c97dB2796Fc5d7a63c3643e3eE35", MembershipContract[ "abi" ], _provider.getSigner());
     
     const memberStatus = await membershipContract.checkMembership();
 

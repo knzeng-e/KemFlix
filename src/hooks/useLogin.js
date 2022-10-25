@@ -1,8 +1,10 @@
 import "firebase/app";
-import { useHistory } from "react-router";
+import { ethers } from "ethers";
 import VideoStore from '../components/VideoStore';
-import React, { createContext, useContext, useEffect, useState } from 'react';
 import { connectAuthEmulator } from "firebase/auth";
+import React, { createContext, useContext, useEffect, useState } from 'react';
+
+
 
 export const useLogin = () => {
 
@@ -36,13 +38,13 @@ export const useLogin = () => {
     }
 
     useEffect(() => {
-        console.log('Ethereum object ::: ', window.ethereum);
+
         if (window.ethereum && window.ethereum.selectedAddress && isConnected === false) {
             setIsConnected(true);
             setWeb3Infos({
                 ...web3Infos,
                 chainId: window.ethereum.chainId,
-                connectedAccount: window.ethereum.selectedAddress
+                connectedAccount: window.ethereum.selectedAddress,
             });
         };
     });
@@ -60,12 +62,20 @@ export const useLogin = () => {
             console.log('Chain changed ..')
             window.location.reload();
         });
+
+        window.ethereum.on('disconnect', (infos) => {
+            setWeb3Infos({});
+            setIsConnected(false);
+            window.location.reload();
+            console.log("ETHEREUM OBJ :: ", window.ethereum._state.accounts);
+        });
     };
     return [
         isConnected,
         setIsConnected,
         web3Infos,
+        // isRegistered,
         setWeb3Infos,
-        metamaskConnect,
+        metamaskConnect
     ];
 }

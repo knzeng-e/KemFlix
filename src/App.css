@@ -46,6 +46,14 @@
 
 }
 
+.SignUp-form {
+  color: teal;
+  font-weight: bold !important;
+  text-align: center;
+  width: 42% !important;
+  margin: 15rem;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -169,11 +177,12 @@
 
 .login-card {
   margin-top: 2%;
+  cursor: pointer;
+  color: rgb(71, 4, 4) !important;
 }
 
 .login-card :hover{
-  margin-top: 2%;
-  color: rgb(255, 128, 0) !important;
+  color: rgb(255, 132, 9) !important;
 }
 
 .login-button {
@@ -191,8 +200,33 @@
 }
 
 .label-user {
-  background: linear-gradient(#e4e4e4, #9b9898, #ffffff) !important;
+  background: linear-gradient(#dad6d6, #ffffff, #e4e4e4) !important;
   color: rgb(6, 12, 84) !important;
+}
+
+.label-user :hover{
+  cursor: pointer;
+}
+
+
+.userAddress {
+  cursor: pointer;
+  color: rgb(6, 12, 84) !important;
+  background: linear-gradient(rgba(234, 234, 234, 0.683), rgb(255, 255, 255), rgb(255, 255, 255), rgb(118, 118, 119)) !important;
+}
+
+.userAddress :hover{
+  background: linear-gradient(rgba(234, 234, 234, 0.683), rgb(255, 255, 255), rgb(187, 187, 187), rgb(63, 63, 66)) !important;
+  /* background: linear-gradient(#b5b4b4, #ffffff, #929090, #121212) !important; */
+}
+
+.userName {
+  background: linear-gradient(rgba(201, 27, 27, 0.209), rgb(120, 2, 2), rgb(201, 27, 27), rgba(1, 1, 47, 0.992)) !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.userContainer{
+  background: linear-gradient(#a45f5f, #ffffff, #e4e4e4) !important;
 }
 
 .course-content {
@@ -205,3 +239,4 @@
   background: linear-gradient(#980505f8, #f31111, #ff2d2d) !important;
   color: white;
 }
+

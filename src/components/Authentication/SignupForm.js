@@ -30,6 +30,7 @@ const Signup = ({ userAddress, web3Infos }) => {
 
   const GENDER_SELECTION_ERROR = "Please select your gender";
   const TERMS_AND_CONDITION_ERROR = "You need to read and accept terms and conditions";
+  const CONTRACT_ADDRESS = "0x6e717C87Db03aBd92b9Fe7aeE7F649164b4F6edA";
 
   const handleSignup = (e) => {
     console.log("Signing Up");
@@ -87,7 +88,7 @@ const Signup = ({ userAddress, web3Infos }) => {
       const _provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = _provider.getSigner();
 
-      const membershipContract = new ethers.Contract("0xB85bFa461FB3c97dB2796Fc5d7a63c3643e3eE35", MembershipContract[ "abi" ], signer);
+      const membershipContract = new ethers.Contract(CONTRACT_ADDRESS, MembershipContract[ "abi" ], signer);
 
       const formatedUserName = ethers.utils.formatBytes32String(userName);
       const tx = await membershipContract.register(formatedUserName);

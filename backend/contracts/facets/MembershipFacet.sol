@@ -2,25 +2,33 @@
 pragma solidity ^0.8.0;
 
 import {LibDiamond} from "../libraries/LibDiamond.sol";
+import {LibMembership} from "../libraries/LibMembership.sol";
 
 contract MembershipFacet {
     modifier onlyMember() {
-        LibDiamond.DiamondStorage storage ds = LibDiamond.diamondStorage();
-        require(ds.isMember[msg.sender], "Not a member");
+        LibMembership.MembershipStorage storage mbStore = LibMembership
+            .membershipStorage();
+        require(mbStore.isMember[msg.sender], "Not a member");
         _;
     }
 
-    function register(bytes32 _login) external {
-        LibDiamond.DiamondStorage storage ds = LibDiamond.diamondStorage();
+    modifier onlyAdmin() {
+        LibDiamond.enforceIsContractOwner();
+        _;
+    }
+
+    function register(bytes32 login) external {
+        LibMembership.MembershipStorage storage mbStore = LibMembership
+            .membershipStorage();
 
         require(
-            ds.isMember[msg.sender] == false &&
-                ds.addressToLogin[msg.sender] == bytes32(0),
+            mbStore.isMember[msg.sender] == false &&
+                mbStore.addressToLogin[msg.sender] == bytes32(0),
             "already registered"
         );
-        ds.isMember[msg.sender] = true;
-        ds.addressToLogin[msg.sender] = _login;
-        //TODO: emit registered event
+        mbStore.isMember[msg.sender] = true;
+        mbStore.addressToLogin[msg.sender] = login;
+        emit LibMembership.MemberRegistered(login, msg.sender, block.timestamp);
     }
 
     function checkMembership()
@@ -28,16 +36,22 @@ contract MembershipFacet {
         view
         returns (bool isMember, bytes32 userName)
     {
-        LibDiamond.DiamondStorage storage ds = LibDiamond.diamondStorage();
+        LibMembership.MembershipStorage storage mbStore = LibMembership
+            .membershipStorage();
 
-        isMember = ds.isMember[msg.sender];
-        userName = ds.addressToLogin[msg.sender];
+        isMember = mbStore.isMember[msg.sender];
+        userName = mbStore.addressToLogin[msg.sender];
     }
 
     function revokeMembership() external onlyMember {
-        LibDiamond.DiamondStorage storage ds = LibDiamond.diamondStorage();
+        LibMembership.MembershipStorage storage mbStore = LibMembership
+            .membershipStorage();
 
-        ds.isMember[msg.sender] = false;
-        //TODO: emit revocation event
+        mbStore.isMember[msg.sender] = false;
+        emit LibMembership.MemberRevoked(
+            mbStore.addressToLogin[msg.sender],
+            msg.sender,
+            block.timestamp
+        );
     }
 }

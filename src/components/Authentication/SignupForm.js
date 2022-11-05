@@ -34,7 +34,7 @@ const Signup = ({ userAddress, web3Infos }) => {
 	const GENDER_SELECTION_ERROR = "Please select your gender";
 	const TERMS_AND_CONDITION_ERROR =
 		"You need to read and accept terms and conditions";
-	const CONTRACT_ADDRESS = "0x6e717C87Db03aBd92b9Fe7aeE7F649164b4F6edA";
+	const CONTRACT_ADDRESS = "0x39Af3E5FaeD7FE64905683226ab20E3a7Cea32d4";
 
 	const handleSignup = async (e) => {
 		console.log("Signing Up");

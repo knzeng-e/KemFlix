@@ -81,27 +81,7 @@ export const useLogin = () => {
 			});
 		}
 	});
-	//     // window.ethereum._handleUnlockStateChanged();
-	//     //Connect EventListenner
-	//     // window.ethereum.on('connect', (infos) => {
-	//     //     setWeb3Infos({
-	//     //         ...web3Infos,
-	//     //     });
-	//     //     console.log("ETHEREUM OBJ :: ", window.ethereum._state.accounts);
-	//     // });
 
-	//     // window.ethereum.on('chainChanged', (chainId) => {
-	//     //     console.log('Chain changed ..')
-	//     //     window.location.reload();
-	//     // });
-
-	//     window.ethereum.on('disconnect', (infos) => {
-	//         setWeb3Infos({});
-	//         setIsConnected(false);
-	//         window.location.reload();
-	//         console.log("ETHEREUM OBJ :: ", window.ethereum._state.accounts);
-	//     });
-	// };
 	return [
 		isConnected,
 		setIsConnected,

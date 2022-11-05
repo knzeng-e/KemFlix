@@ -30,8 +30,12 @@ export const useSignup = () => {
 
     console.log("IsMember status: ", memberStatus);
 
+    if (memberStatus[ "isMember" ]) {
+      console.log(`Decoded userName ${memberStatus["userName"]} :: ${ethers.utils.parseBytes32String(memberStatus["userName"])}`)
+    }
+
     return memberStatus["isMember"];
-}
+  }
 
 
     return [isUserRegistered];

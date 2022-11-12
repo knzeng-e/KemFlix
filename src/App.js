@@ -1,11 +1,10 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import { useLogin } from "./hooks";
 import Home from "./components/Home";
 import Animes from "./components/Animes";
+import NavBar from "./components/NavBar";
 import "semantic-ui-css/semantic.min.css";
-import { Button, Icon, Label } from "semantic-ui-react";
-import { useLogin, useMenu, useSignup } from "./hooks";
-import { Container, Message } from "semantic-ui-react";
+import { useEffect, useState } from "react";
 import Webradios from "./components/Webradios";
 import Formations from "./components/Formations";
 import Audiotheque from "./components/Audiotheque";
@@ -15,20 +14,12 @@ import Documentaires from "./components/Documentaires";
 import SignupForm from "./components/Authentication/SignupForm";
 import AudioBooks from "./components/audiobooks/Theorie_economique";
 import ELeanings from "./components/e-learning/ZTM_Ethereum_Blockchain";
+import { Button, Icon, Label, Message, Container } from "semantic-ui-react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 const App = () => {
-	const [renderMenu] = useMenu();
 	const [hasAccess, setHasAccess] = useState(false);
-	const [
-		isConnected,
-		setIsConnected,
-		web3Infos,
-		setWeb3Infos,
-		metamaskConnect,
-		hasMetamask,
-	] = useLogin();
-	const [isUserRegistered] = useSignup();
+	const [username, web3Infos, isConnected, metamaskConnect] = useLogin();
 
 	const connection = () => {
 		if (window.ethereum) {
@@ -43,7 +34,7 @@ const App = () => {
 		return (
 			<Router>
 				<Container className="App">
-					{renderMenu()}
+					<NavBar />
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<Route path="/animes" component={Animes} />
@@ -122,12 +113,10 @@ const App = () => {
 	};
 
 	useEffect(() => {
-		if (isConnected) {
-			if (isUserRegistered) {
-				setHasAccess(true);
-			}
+		if (isConnected && username) {
+			setHasAccess(true);
 		}
-	}, [isUserRegistered, isConnected]);
+	}, [isConnected, username]);
 
 	if (isConnected) {
 		if (hasAccess) {

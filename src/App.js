@@ -22,6 +22,10 @@ import {
 	Container,
 	Loader,
 	Dimmer,
+	Segment,
+	Card,
+	CardContent,
+	CardHeader,
 } from "semantic-ui-react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
@@ -139,9 +143,9 @@ const App = () => {
 			<div>
 				{isUserRegistered === null && !hasAccess && (
 					<Dimmer active>
-						<Loader indeterminate>
-							Connecting to KEMFLIX ...
-						</Loader>
+							<Loader indeterminate>
+								Connecting to KEMFLIX ...
+							</Loader>
 					</Dimmer>
 				)}
 				{isUserRegistered && hasAccess && renderKemFlix()}

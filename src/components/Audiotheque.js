@@ -15,7 +15,7 @@ const Audiotheque = () => {
             <Card.Group itemsPerRow={1} centered className='audio-content'>
                 {books.map((book, key) => {
                     return (
-                        <Card id={book.ref} >
+                        <Card id={book.ref} key={key}>
                             <Segment className={book.isAudio ? 'book-info' : 'book-info-no-audio'} raised >
                                 {book.isAudio ? <Link to={getAudioLink(book)}>
                                     <Icon name='play' /> {book.title}

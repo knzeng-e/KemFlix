@@ -4,6 +4,10 @@ import VideoStore from "../components/VideoStore";
 import { connectAuthEmulator } from "firebase/auth";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
+import * as MembershipContract from "../artifacts/contracts/facets/MembershipFacet.sol/MembershipFacet.json";
+
+const CONTRACT_ADDRESS = "0x39Af3E5FaeD7FE64905683226ab20E3a7Cea32d4";
+
 export const useLogin = () => {
 	const initialWeb3State = {
 		chainId: null,
@@ -12,8 +16,10 @@ export const useLogin = () => {
 	};
 
 	const [provider, setProvider] = useState(null);
+	const [username, setUsername] = useState(null);
 	const [isConnected, setIsConnected] = useState(false);
 	const [web3Infos, setWeb3Infos] = useState(initialWeb3State);
+	const [isUserRegistered, setIsUserRegistered] = useState(false);
 
 	const metamaskConnect = async () => {
 		console.log("Connection with metaMask");
@@ -55,6 +61,37 @@ export const useLogin = () => {
 		window.location.reload();
 	};
 
+	const ckeckRegistration = async () => {
+		const _provider = new ethers.providers.Web3Provider(window.ethereum);
+		const membershipContract = new ethers.Contract(
+			CONTRACT_ADDRESS,
+			MembershipContract["abi"],
+			_provider.getSigner()
+		);
+
+		const memberStatus = await membershipContract.checkMembership();
+
+		console.log("IsMember status: ", memberStatus);
+
+		if (memberStatus["isMember"]) {
+			const decodedUserName = ethers.utils.parseBytes32String(
+				memberStatus["userName"]
+			);
+			console.log(
+				`Decoded userName ${memberStatus["userName"]} :: ${decodedUserName}`
+			);
+
+			setIsUserRegistered(true);
+			setUsername(decodedUserName);
+		}
+	};
+
+	useEffect(() => {
+		if (isConnected) {
+			ckeckRegistration();
+		}
+	}, [isConnected]);
+
 	useEffect(() => {
 		if (
 			window.ethereum &&
@@ -69,7 +106,7 @@ export const useLogin = () => {
 				connectedAccount: window.ethereum.selectedAddress,
 			});
 		}
-	});
+	}, [isConnected, web3Infos]);
 
 	useEffect(() => {
 		if (window.ethereum) {
@@ -83,11 +120,12 @@ export const useLogin = () => {
 	});
 
 	return [
-		isConnected,
-		setIsConnected,
+		username,
 		web3Infos,
-		// isRegistered,
+		isConnected,
 		setWeb3Infos,
+		setIsConnected,
 		metamaskConnect,
+		isUserRegistered,
 	];
 };

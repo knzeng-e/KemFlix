@@ -204,10 +204,11 @@ const Signup = ({ userAddress, web3Infos }) => {
 				</Dimmer>
 			</Segment.Group>
 			<Dimmer page className="login-card" active={isRegistered}>
-          <Icon name="check" color="teal"/> <strong>{userName}</strong> Bassé ! :)
+				<Icon name="check" color="teal" /> <strong>{userName}</strong> Bassé !
+				:)
 				<Divider />
-        <Button
-          inverted
+				<Button
+					inverted
 					color="black"
 					onClick={() => {
 						window.location.reload();
@@ -216,10 +217,10 @@ const Signup = ({ userAddress, web3Infos }) => {
 					BASSÉ
 				</Button>
 			</Dimmer>
-			<Dimmer page active={errorMessage.length} className="login-card">
-          <Icon name="ban" color="red"/> {errorMessage}
+			<Dimmer page active={errorMessage.length !== 0} className="login-card">
+				<Icon name="ban" color="red" /> {errorMessage}
 				<Divider />
-        {/* <Button
+				{/* <Button
           inverted
 					color="black"
 					onClick={() => {
@@ -228,8 +229,8 @@ const Signup = ({ userAddress, web3Infos }) => {
 				>
 					Cancel
 				</Button> */}
-        <Button
-          inverted
+				<Button
+					inverted
 					color="black"
 					onClick={() => {
 						window.location.reload();

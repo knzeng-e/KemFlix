@@ -14,12 +14,28 @@ import Documentaires from "./components/Documentaires";
 import SignupForm from "./components/Authentication/SignupForm";
 import AudioBooks from "./components/audiobooks/Theorie_economique";
 import ELeanings from "./components/e-learning/ZTM_Ethereum_Blockchain";
-import { Button, Icon, Label, Message, Container } from "semantic-ui-react";
+import {
+	Button,
+	Icon,
+	Label,
+	Message,
+	Container,
+	Loader,
+	Dimmer,
+} from "semantic-ui-react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 const App = () => {
 	const [hasAccess, setHasAccess] = useState(false);
-	const [username, web3Infos, isConnected, metamaskConnect] = useLogin();
+	const [
+		username,
+		web3Infos,
+		isConnected,
+		setWeb3Infos,
+		setIsConnected,
+		metamaskConnect,
+		isUserRegistered,
+	] = useLogin();
 
 	const connection = () => {
 		if (window.ethereum) {
@@ -119,11 +135,19 @@ const App = () => {
 	}, [isConnected, username]);
 
 	if (isConnected) {
-		if (hasAccess) {
-			return renderKemFlix();
-		} else {
-			return signupForm();
-		}
+		return (
+			<div>
+				{isUserRegistered === null && !hasAccess && (
+					<Dimmer active>
+						<Loader indeterminate>
+							Connecting to KEMFLIX ...
+						</Loader>
+					</Dimmer>
+				)}
+				{isUserRegistered && hasAccess && renderKemFlix()}
+				{isUserRegistered === false && !hasAccess && signupForm()}
+			</div>
+		);
 	} else {
 		if (window.ethereum) {
 			return connectionButton();

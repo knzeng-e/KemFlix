@@ -19,7 +19,7 @@ export const useLogin = () => {
 	const [username, setUsername] = useState(null);
 	const [isConnected, setIsConnected] = useState(false);
 	const [web3Infos, setWeb3Infos] = useState(initialWeb3State);
-	const [isUserRegistered, setIsUserRegistered] = useState(false);
+	const [isUserRegistered, setIsUserRegistered] = useState(null);
 
 	const metamaskConnect = async () => {
 		console.log("Connection with metaMask");
@@ -83,6 +83,8 @@ export const useLogin = () => {
 
 			setIsUserRegistered(true);
 			setUsername(decodedUserName);
+		} else {
+			setIsUserRegistered(false);
 		}
 	};
 

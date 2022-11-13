@@ -26,6 +26,7 @@ import {
 	Card,
 	CardContent,
 	CardHeader,
+	Divider,
 } from "semantic-ui-react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
@@ -83,24 +84,27 @@ const App = () => {
 	const connectionButton = () => {
 		return (
 			<Container className="login-page">
-				<div className="login-card">
-					<Button inverted className="login-button" onClick={connection}>
-						KEMFLIX{" "}
-						<Label corner color="teal">
-							{" "}
-							<Icon as={"h2"} name="ethereum" /> web3
-						</Label>
-						<div className="login-button-text">
-							<Icon circular color="red" disabled name="power" />
+				{window.ethereum && (				
+					<div className="login-card">
+						<Divider />
+						<div className="button-title">
+							<h3>
+								<strong>KEMFLIX</strong>
+							</h3>
 						</div>
-						{window.ethereum && (
+						<Divider />
+						<Button fluid color="black" inverted className="login-button" >
 							<div>
-								<h3 className="login-title"></h3>Bokayé
+								<div className="login-title" onClick={connection}>
+									<Icon circular bordered color="red" name="power" className="login-icon"/>
+									<em>Bokayé</em>
+								</div>
 							</div>
-						)}
-					</Button>
-					<br /> <br />
-				</div>
+						</Button>
+						
+						<br /> <br />
+					</div>
+					)}
 			</Container>
 		);
 	};
@@ -114,10 +118,9 @@ const App = () => {
 					</Label>
 					<Message.Header></Message.Header>
 					<Message.Content>
-						<div className="login-card" onClick={connection}>
+						<div onClick={connection}>
 							<strong>
-								{" "}
-								Please install Metamask plugin to access Web 3 app
+								A Wallet plugin is required to access this web3 App
 							</strong>
 							<br /> <br />
 							<div className="login-button-text">
@@ -143,9 +146,7 @@ const App = () => {
 			<div>
 				{isUserRegistered === null && !hasAccess && (
 					<Dimmer active>
-							<Loader indeterminate>
-								Connecting to KEMFLIX ...
-							</Loader>
+						<Loader indeterminate>Connecting to KEMFLIX ...</Loader>
 					</Dimmer>
 				)}
 				{isUserRegistered && hasAccess && renderKemFlix()}

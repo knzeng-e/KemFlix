@@ -25,15 +25,39 @@
   color: red !important;
 }
 
-.login-title {
-  color: white !important;
+.button-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(220, 11, 11) !important;
 }
+
+.button-title :hover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(220, 11, 11) !important;
+}
+
+.login-title {
+  display: flex;
+  justify-content: center !important;
+  align-items: center;
+  padding-right: 2%;
+  margin-right: 2%;
+}
+
+.login-button-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
 
 .Menu {
   color: rgba(255, 255, 255, 0.623) !important;
   font-size: large;
-
-  
 }
 
 .Menu.active {
@@ -167,36 +191,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius: 12px;
-  padding-top: 10rem;
-  padding-bottom: 10rem;
-  padding-left: 0;
-  padding-right: 0;
-  margin: 16rem;
+  min-height: 100vh;
 }
 
 .login-card {
-  margin-top: 2%;
+  width: 50% !important;
   cursor: pointer;
   color: rgb(71, 4, 4) !important;
-}
-
-.login-card :hover{
-  color: rgb(255, 132, 9) !important;
-}
-
-.login-button {
-  background: linear-gradient(#b0aeae8f, #000000, #020550) !important;
-};
-
-.login-button-text :hover {
-  color: yellow !important;
-}
-.login-button-text {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
 }
 
 .label-user {
@@ -217,7 +218,6 @@
 
 .userAddress :hover{
   background: linear-gradient(rgba(234, 234, 234, 0.683), rgb(255, 255, 255), rgb(187, 187, 187), rgb(63, 63, 66)) !important;
-  /* background: linear-gradient(#b5b4b4, #ffffff, #929090, #121212) !important; */
 }
 
 .userName {

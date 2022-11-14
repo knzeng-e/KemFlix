@@ -1,16 +1,16 @@
 import "./App.css";
 import { useLogin } from "./hooks";
 import Home from "./components/Home";
-import Animes from "./components/Animes";
+import Animes from "./components/menu/Animes";
 import NavBar from "./components/NavBar";
 import "semantic-ui-css/semantic.min.css";
 import { useEffect, useState } from "react";
-import Webradios from "./components/Webradios";
-import Formations from "./components/Formations";
-import Audiotheque from "./components/Audiotheque";
-import Conferences from "./components/Conferences";
+import Webradios from "./components/menu/Webradios";
+import Formations from "./components/menu/Formations";
+import Audiotheque from "./components/menu/Audiotheque";
+import Conferences from "./components/menu/Conferences";
 import MetaMaskOnboarding from "@metamask/onboarding";
-import Documentaires from "./components/Documentaires";
+import Documentaires from "./components/menu/Documentaires";
 import SignupForm from "./components/Authentication/SignupForm";
 import AudioBooks from "./components/audiobooks/Theorie_economique";
 import ELeanings from "./components/e-learning/ZTM_Ethereum_Blockchain";
@@ -40,11 +40,16 @@ const App = () => {
 		setIsConnected,
 		metamaskConnect,
 		isUserRegistered,
+		isNetworkAllowed,
 	] = useLogin();
 
 	const connection = () => {
 		if (window.ethereum) {
-			metamaskConnect();
+			if (isNetworkAllowed) {
+				metamaskConnect();
+			} else {
+				console.log("Check Network configuration")
+			}
 		} else {
 			const onboarding = new MetaMaskOnboarding();
 			onboarding.startOnboarding();
@@ -134,6 +139,31 @@ const App = () => {
 			</Container>
 		);
 	};
+	const renderNetworkError = () => {
+		return (
+			<Container className="login-page">
+				<Message>
+					<Label attached="top" active>
+						<div className="web3-error">WRONG BLOCKCHAIN SELECTED</div>
+					</Label>
+					<Message.Header></Message.Header>
+					<Message.Content>
+						<Segment padded textAlign="center" placeholder>
+							<strong>
+								Please Select the right network in metamask
+							</strong>
+							<br /> <br />
+							<div className="login-button-text" >
+								<Icon onClick={connection} circular fitted color="red" name="download" />
+								<br />
+								<div>Click to import Recommanded network config</div>
+							</div>
+						</Segment>
+					</Message.Content>
+				</Message>
+			</Container>
+		);
+	};
 
 	useEffect(() => {
 		if (isConnected && username) {
@@ -144,13 +174,14 @@ const App = () => {
 	if (isConnected) {
 		return (
 			<div>
-				{isUserRegistered === null && !hasAccess && (
+				{!isNetworkAllowed && renderNetworkError()}
+				{isNetworkAllowed && isUserRegistered === null && !hasAccess && (
 					<Dimmer active>
 						<Loader indeterminate>Connecting to KEMFLIX ...</Loader>
 					</Dimmer>
 				)}
-				{isUserRegistered && hasAccess && renderKemFlix()}
-				{isUserRegistered === false && !hasAccess && signupForm()}
+				{isNetworkAllowed && isUserRegistered && hasAccess && renderKemFlix()}
+				{isNetworkAllowed && isUserRegistered === false && !hasAccess && signupForm()}
 			</div>
 		);
 	} else {

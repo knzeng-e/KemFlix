@@ -1,5 +1,5 @@
 import React from 'react';
-import { audiosList } from '../utils/audios';
+import { audiosList } from '../../utils/audios';
 import 'react-h5-audio-player/lib/styles.css';
 import ReactAudioPlayer from 'react-h5-audio-player';
 import { Card, Icon, Segment, Container, Image } from 'semantic-ui-react';

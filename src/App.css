@@ -9,6 +9,7 @@
 
 .Navbar {
   margin: 0 !important;
+  padding-left: 2.1% !important;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -39,7 +40,22 @@
   color: rgb(220, 11, 11) !important;
 }
 
+.login-page {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.login-card {
+  width: 50% !important;
+  cursor: pointer;
+  color: rgb(71, 4, 4) !important;
+}
+
 .login-title {
+  color: white !important;
   display: flex;
   justify-content: center !important;
   align-items: center;
@@ -54,20 +70,23 @@
   justify-content: space-between;
 }
 
+.login-button {
+  /* background: linear-gradient(#b0aeae8f, #000000, #020550) !important; */
+}
 
-.Menu {
-  color: rgba(255, 255, 255, 0.623) !important;
+
+.menu-label {
+  color: rgb(255, 255, 255) !important;
   font-size: large;
 }
 
-.Menu.active {
+.menu-label.active {
   color: rgb(255, 255, 255)!important;
   text-decoration: none!important;
 }
-.Menu:hover {
+.menu-label:hover {
   color: rgb(243, 19, 19)!important;
   font-size: large;
-
 }
 
 .SignUp-form {
@@ -186,20 +205,6 @@
   background: linear-gradient(#040624, #696d6e18) !important;
 }
 
-.login-page {
-  display: flex !important;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-}
-
-.login-card {
-  width: 50% !important;
-  cursor: pointer;
-  color: rgb(71, 4, 4) !important;
-}
-
 .label-user {
   background: linear-gradient(#dad6d6, #ffffff, #e4e4e4) !important;
   color: rgb(6, 12, 84) !important;
@@ -212,17 +217,18 @@
 
 .userAddress {
   cursor: pointer;
-  color: rgb(6, 12, 84) !important;
-  background: linear-gradient(rgba(234, 234, 234, 0.683), rgb(255, 255, 255), rgb(255, 255, 255), rgb(118, 118, 119)) !important;
+  /* color: rgb(6, 12, 84) !important; */
+  /* background: linear-gradient(rgba(234, 234, 234, 0.683), rgb(255, 255, 255), rgb(255, 255, 255), rgb(118, 118, 119)) !important; */
 }
 
 .userAddress :hover{
-  background: linear-gradient(rgba(234, 234, 234, 0.683), rgb(255, 255, 255), rgb(187, 187, 187), rgb(63, 63, 66)) !important;
+  /* background: linear-gradient(rgba(234, 234, 234, 0.683), rgb(255, 255, 255), rgb(187, 187, 187), rgb(63, 63, 66)) !important; */
 }
 
 .userName {
-  background: linear-gradient(rgba(201, 27, 27, 0.209), rgb(120, 2, 2), rgb(201, 27, 27), rgba(1, 1, 47, 0.992)) !important;
+  /* background: linear-gradient(rgba(201, 27, 27, 0.209), rgb(120, 2, 2), rgb(201, 27, 27), rgba(1, 1, 47, 0.992)) !important; */
   color: rgb(255, 255, 255) !important;
+  /* width: 50%; */
 }
 
 .userContainer{

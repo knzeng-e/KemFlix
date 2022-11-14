@@ -1,6 +1,6 @@
 import React from 'react';
-import Video from './Video';
-import { coco, soul, garcon_et_bete } from '../utils/videoLinks/animeLinks';
+import Video from '../Video';
+import { coco, soul, garcon_et_bete } from '../../utils/videoLinks/animeLinks';
 import { Card, Container, Divider, Header } from 'semantic-ui-react';
 
 function Animes() {

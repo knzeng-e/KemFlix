@@ -1,4 +1,4 @@
-import { books } from '../utils/books';
+import { books } from '../../utils/books';
 import { Link } from 'react-router-dom';
 import { Card, Icon, Segment, Container, Image } from 'semantic-ui-react';
 

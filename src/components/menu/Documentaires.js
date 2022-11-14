@@ -1,7 +1,7 @@
 import React from 'react';
-import Video from './Video';
+import Video from '../Video';
 import { Card, Container } from 'semantic-ui-react';
-import { documentaires } from '../utils/videoLinks/documentairesLinks';
+import { documentaires } from '../../utils/videoLinks/documentairesLinks';
 
 const Documentaires = () => {
 

@@ -1,7 +1,7 @@
+import { Link } from "react-router-dom";
 import { useLogin } from "../hooks/useLogin";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { Segment, Menu, Label, Icon, Card } from "semantic-ui-react";
+import { Segment, Menu, Icon, } from "semantic-ui-react";
 import { rubriques, renderPage } from "../utils/layoutUtils";
 
 const Account = ({ address, username }) => {
@@ -9,21 +9,20 @@ const Account = ({ address, username }) => {
 
 	const toggleAddress = () => setShowFullAddress(!showFullAddress);
 	return (
-		<Card>
-			<Card.Header className="userName">{username}</Card.Header>
-			<Card.Content className="label-user">
-				<Icon circular size="large" name="user circle" />
-			</Card.Content>
-			<Card.Description className="userAddress">
-				<div onClick={toggleAddress}>
+		<Segment basic>
+			<div className="userName">
+					
+				<h4>{username}</h4>
+				<div onClick={toggleAddress} className="userAddress">
+					<Icon circular size="small" name="key" color="teal" />
 					{showFullAddress
 						? address
 						: `${address.substr(0, 6)} ... ${address.substr(
 								address.length - 5
 						  )}`}
 				</div>
-			</Card.Description>
-		</Card>
+			</div>
+		</Segment>
 	);
 };
 
@@ -56,7 +55,7 @@ const NavBar = () => {
 							<Link to={renderPage(onglet)} key={index}>
 								<Menu.Item
 									key={index}
-									className="Menu"
+									className="menu-label"
 									name={onglet}
 									active={activeItem === onglet}
 									onClick={() => {

@@ -1,7 +1,7 @@
 import React from 'react';
-import Video from './Video';
+import Video from '../Video';
 import { Card } from 'semantic-ui-react';
-import { conferences } from '../utils/videoLinks/conferencesLinks';
+import { conferences } from '../../utils/videoLinks/conferencesLinks';
 
 const Conferences = () => {
     return (

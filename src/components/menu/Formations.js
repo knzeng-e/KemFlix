@@ -1,7 +1,7 @@
 import React from 'react';
-import { courses } from '../utils/cours';
+import { courses } from '../../utils/cours';
 import { Link } from 'react-router-dom';
-import { useLogin, useMenu } from "../hooks/";
+import { useLogin, useMenu } from "../../hooks/";
 import { Card, Icon, Segment, Container, Image } from 'semantic-ui-react';
 
 // playerModule: https://www.npmjs.com/package/react-h5-audio-player

@@ -8,6 +8,8 @@ import * as MembershipContract from "../artifacts/contracts/facets/MembershipFac
 
 const CONTRACT_ADDRESS = "0x39Af3E5FaeD7FE64905683226ab20E3a7Cea32d4";
 
+const whiteListedNetworks = [73799];
+
 export const useLogin = () => {
 	const initialWeb3State = {
 		chainId: null,
@@ -18,6 +20,7 @@ export const useLogin = () => {
 	const [provider, setProvider] = useState(null);
 	const [username, setUsername] = useState(null);
 	const [isConnected, setIsConnected] = useState(false);
+	const [isNetworkAllowed, setIsNetworkAllowed] = useState(false);
 	const [web3Infos, setWeb3Infos] = useState(initialWeb3State);
 	const [isUserRegistered, setIsUserRegistered] = useState(null);
 
@@ -44,6 +47,9 @@ export const useLogin = () => {
 	};
 
 	const handleNetworkChange = () => {
+		if (!whiteListedNetworks.includes(Number(window.ethereum.chainId))) {
+			setIsNetworkAllowed(false);
+		}
 		window.location.reload();
 	};
 	const handleConnection = () => {
@@ -89,7 +95,7 @@ export const useLogin = () => {
 	};
 
 	useEffect(() => {
-		if (isConnected) {
+		if (isConnected && isNetworkAllowed) {
 			ckeckRegistration();
 		}
 	}, [isConnected]);
@@ -108,7 +114,11 @@ export const useLogin = () => {
 				connectedAccount: window.ethereum.selectedAddress,
 			});
 		}
-	}, [isConnected, web3Infos]);
+	}, [ isConnected, web3Infos ]);
+	
+	useEffect(() => {
+
+	}, [])
 
 	useEffect(() => {
 		if (window.ethereum) {
@@ -118,6 +128,10 @@ export const useLogin = () => {
 			_provider.on("accountsChanged", (accounts) => {
 				handleAccounts(accounts);
 			});
+
+			if (whiteListedNetworks.includes(Number(window.ethereum.chainId))) {
+				setIsNetworkAllowed(true);
+			}
 		}
 	});
 
@@ -129,5 +143,6 @@ export const useLogin = () => {
 		setIsConnected,
 		metamaskConnect,
 		isUserRegistered,
+		isNetworkAllowed,
 	];
 };

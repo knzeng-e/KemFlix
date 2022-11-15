@@ -70,8 +70,21 @@
   justify-content: space-between;
 }
 
-.login-button {
-  /* background: linear-gradient(#b0aeae8f, #000000, #020550) !important; */
+.confirmation-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.confirm-Btn {
+  background: linear-gradient(#b0aeae8f, #000000, #020550) !important;
+  color: white !important;
+}
+
+.confirm-Btn:hover {
+  color: rgb(220, 154, 11) !important;
+  background: linear-gradient(#979696, #000000, #020443) !important;
 }
 
 .import-button {

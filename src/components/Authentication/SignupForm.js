@@ -182,7 +182,7 @@ const Signup = ({ userAddress, web3Infos }) => {
 							/>
 						</Segment>
 
-						<Segment basic>
+						<Segment basic className="confirmation-box">
 							{/* TO-DO: Write and link terms and conditions */}
 							<Form.Field>
 								<Checkbox
@@ -190,8 +190,8 @@ const Signup = ({ userAddress, web3Infos }) => {
 									label="I agree to the Terms and Conditions"
 								/>
 							</Form.Field>
-							<Form.Field className="login-card">
-								<Button inverted className="login-button" type="submit">
+							<Form.Field>
+								<Button className="confirm-Btn" type="submit">
 									Bassé
 								</Button>
 							</Form.Field>

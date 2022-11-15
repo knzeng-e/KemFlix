@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useLogin } from "../hooks/useLogin";
 import React, { useEffect, useState } from "react";
-import { Segment, Menu, Icon, } from "semantic-ui-react";
+import { Segment, Menu, Icon } from "semantic-ui-react";
 import { rubriques, renderPage } from "../utils/layoutUtils";
 
 const Account = ({ address, username }) => {
@@ -11,7 +11,6 @@ const Account = ({ address, username }) => {
 	return (
 		<Segment basic>
 			<div className="userName">
-					
 				<h4>{username}</h4>
 				<div onClick={toggleAddress} className="userAddress">
 					<Icon circular size="small" name="key" color="teal" />
@@ -21,6 +20,7 @@ const Account = ({ address, username }) => {
 								address.length - 5
 						  )}`}
 				</div>
+				{/* <Icon onClick={() => { console.log(window.ethereum) }} circular size="small" name="log out" color="teal" /> */}
 			</div>
 		</Segment>
 	);

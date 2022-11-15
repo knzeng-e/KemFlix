@@ -41,18 +41,32 @@ const App = () => {
 		metamaskConnect,
 		isUserRegistered,
 		isNetworkAllowed,
+		defaultNetworkConfig,
 	] = useLogin();
 
-	const connection = () => {
+	const connection = async () => {
 		if (window.ethereum) {
 			if (isNetworkAllowed) {
 				metamaskConnect();
 			} else {
-				console.log("Check Network configuration")
+				console.log("Check Network configuration:: ", isConnected);
+				await window.ethereum.request({
+					method: "wallet_addEthereumChain",
+					params: [defaultNetworkConfig],
+				});
 			}
 		} else {
 			const onboarding = new MetaMaskOnboarding();
 			onboarding.startOnboarding();
+		}
+	};
+
+	const importNetwork = async () => {
+		if (isConnected) {
+			await window.ethereum.request({
+				method: "wallet_addEthereumChain",
+				params: [defaultNetworkConfig],
+			});
 		}
 	};
 
@@ -89,7 +103,7 @@ const App = () => {
 	const connectionButton = () => {
 		return (
 			<Container className="login-page">
-				{window.ethereum && (				
+				{window.ethereum && (
 					<div className="login-card">
 						<Divider />
 						<div className="button-title">
@@ -98,18 +112,23 @@ const App = () => {
 							</h3>
 						</div>
 						<Divider />
-						<Button fluid color="black" inverted className="login-button" >
+						<Button fluid color="black" inverted className="login-button">
 							<div>
 								<div className="login-title" onClick={connection}>
-									<Icon circular bordered color="red" name="power" className="login-icon"/>
+									<Icon
+										circular
+										bordered
+										color="red"
+										name="power"
+										className="login-icon"
+									/>
 									<em>Bokayé</em>
 								</div>
 							</div>
 						</Button>
-						
 						<br /> <br />
 					</div>
-					)}
+				)}
 			</Container>
 		);
 	};
@@ -149,12 +168,17 @@ const App = () => {
 					<Message.Header></Message.Header>
 					<Message.Content>
 						<Segment padded textAlign="center" placeholder>
-							<strong>
-								Please Select the right network in metamask
-							</strong>
+							<strong>Please Select the right network in metamask</strong>
 							<br /> <br />
-							<div className="login-button-text" >
-								<Icon onClick={connection} circular fitted color="red" name="download" />
+							<div className="login-button-text">
+								<Icon
+									className="import-button"
+									onClick={importNetwork}
+									circular
+									fitted
+									color="red"
+									name="download"
+								/>
 								<br />
 								<div>Click to import Recommanded network config</div>
 							</div>
@@ -181,7 +205,10 @@ const App = () => {
 					</Dimmer>
 				)}
 				{isNetworkAllowed && isUserRegistered && hasAccess && renderKemFlix()}
-				{isNetworkAllowed && isUserRegistered === false && !hasAccess && signupForm()}
+				{isNetworkAllowed &&
+					isUserRegistered === false &&
+					!hasAccess &&
+					signupForm()}
 			</div>
 		);
 	} else {

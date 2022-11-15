@@ -17,6 +17,19 @@ export const useLogin = () => {
 		connectedAccount: null,
 	};
 
+	const defaultNetworkConfig = {
+		chainId: "0x12047",
+		chainName: "EnergyWeb Volta",
+		rpcUrls: ["https://volta-rpc.energyweb.org"],
+		blockExplorerUrls: ["https://volta-explorer.energyweb.org/"],
+		iconUrls: "",
+		nativeCurrency: {
+			name: "Volta",
+			symbol: "VT",
+			decimals: 18,
+		},
+	};
+
 	const [provider, setProvider] = useState(null);
 	const [username, setUsername] = useState(null);
 	const [isConnected, setIsConnected] = useState(false);
@@ -114,11 +127,9 @@ export const useLogin = () => {
 				connectedAccount: window.ethereum.selectedAddress,
 			});
 		}
-	}, [ isConnected, web3Infos ]);
-	
-	useEffect(() => {
+	}, [isConnected, web3Infos]);
 
-	}, [])
+	useEffect(() => {}, []);
 
 	useEffect(() => {
 		if (window.ethereum) {
@@ -144,5 +155,6 @@ export const useLogin = () => {
 		metamaskConnect,
 		isUserRegistered,
 		isNetworkAllowed,
+		defaultNetworkConfig,
 	];
 };

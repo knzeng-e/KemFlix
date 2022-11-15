@@ -74,6 +74,10 @@
   /* background: linear-gradient(#b0aeae8f, #000000, #020550) !important; */
 }
 
+.import-button {
+  cursor: pointer;
+}
+
 
 .menu-label {
   color: rgb(255, 255, 255) !important;

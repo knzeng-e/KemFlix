@@ -117,7 +117,7 @@ const Signup = ({ userAddress, web3Infos }) => {
 	];
 
 	return (
-		<Container className="SignUp-form">
+		<Container className="signup-form">
 			<Segment.Group>
 				<Segment inverted color="teal" padded="very">
 					<Header title="Decline your ID">

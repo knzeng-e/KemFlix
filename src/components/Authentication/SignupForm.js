@@ -202,43 +202,43 @@ const Signup = ({ userAddress, web3Infos }) => {
 					<Loader indeterminate>{`
           ${userName}, please sign transaction and wait ... `}</Loader>
 				</Dimmer>
+				<Dimmer page className="" active={isRegistered}>
+					<Icon name="check" color="teal" /> <strong>{userName}</strong> Bassé !
+					:)
+					<Divider />
+					<Button
+						inverted
+						color="black"
+						onClick={() => {
+							window.location.reload();
+						}}
+					>
+						BASSÉ
+					</Button>
+				</Dimmer>
+				<Dimmer page active={errorMessage.length !== 0} className="">
+					<Icon name="ban" color="red" /> {errorMessage}
+					<Divider />
+					{/* <Button
+						inverted
+						color="black"
+						onClick={() => {
+							window.location.reload();
+						}}
+					>
+						Cancel
+					</Button> */}
+					<Button
+						inverted
+						color="black"
+						onClick={() => {
+							window.location.reload();
+						}}
+					>
+						Retry
+					</Button>
+				</Dimmer>
 			</Segment.Group>
-			<Dimmer page className="login-card" active={isRegistered}>
-				<Icon name="check" color="teal" /> <strong>{userName}</strong> Bassé !
-				:)
-				<Divider />
-				<Button
-					inverted
-					color="black"
-					onClick={() => {
-						window.location.reload();
-					}}
-				>
-					BASSÉ
-				</Button>
-			</Dimmer>
-			<Dimmer page active={errorMessage.length !== 0} className="login-card">
-				<Icon name="ban" color="red" /> {errorMessage}
-				<Divider />
-				{/* <Button
-          inverted
-					color="black"
-					onClick={() => {
-						window.location.reload();
-					}}
-				>
-					Cancel
-				</Button> */}
-				<Button
-					inverted
-					color="black"
-					onClick={() => {
-						window.location.reload();
-					}}
-				>
-					Retry
-				</Button>
-			</Dimmer>
 		</Container>
 	);
 };

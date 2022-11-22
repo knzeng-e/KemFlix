@@ -91,12 +91,43 @@ const App = () => {
 		);
 	};
 
-	const signupForm = () => {
+	const renderSignupForm = () => {
 		return (
 			<SignupForm
 				userAddress={web3Infos.connectedAccount}
 				web3Infos={web3Infos}
 			/>
+		);
+	};
+
+	const renderNetworkError = () => {
+		return (
+			<Container className="login-page">
+				<Message>
+					<Label attached="top" active>
+						<div className="web3-error">WRONG BLOCKCHAIN SELECTED</div>
+					</Label>
+					<Message.Header></Message.Header>
+					<Message.Content>
+						<Segment padded textAlign="center" placeholder>
+							<strong>Please Select the right network in metamask</strong>
+							<br /> <br />
+							<div className="login-button-text">
+								<Icon
+									className="import-button"
+									onClick={importNetwork}
+									circular
+									fitted
+									color="red"
+									name="download"
+								/>
+								<br />
+								<div>Click to import Recommanded network config</div>
+							</div>
+						</Segment>
+					</Message.Content>
+				</Message>
+			</Container>
 		);
 	};
 
@@ -158,36 +189,6 @@ const App = () => {
 			</Container>
 		);
 	};
-	const renderNetworkError = () => {
-		return (
-			<Container className="login-page">
-				<Message>
-					<Label attached="top" active>
-						<div className="web3-error">WRONG BLOCKCHAIN SELECTED</div>
-					</Label>
-					<Message.Header></Message.Header>
-					<Message.Content>
-						<Segment padded textAlign="center" placeholder>
-							<strong>Please Select the right network in metamask</strong>
-							<br /> <br />
-							<div className="login-button-text">
-								<Icon
-									className="import-button"
-									onClick={importNetwork}
-									circular
-									fitted
-									color="red"
-									name="download"
-								/>
-								<br />
-								<div>Click to import Recommanded network config</div>
-							</div>
-						</Segment>
-					</Message.Content>
-				</Message>
-			</Container>
-		);
-	};
 
 	useEffect(() => {
 		if (isConnected && username) {
@@ -208,7 +209,7 @@ const App = () => {
 				{isNetworkAllowed &&
 					isUserRegistered === false &&
 					!hasAccess &&
-					signupForm()}
+					renderSignupForm()}
 			</div>
 		);
 	} else {

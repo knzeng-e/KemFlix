@@ -139,22 +139,22 @@
 }
 
 .Videos {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   padding: 4.2% !important;
   margin: 0 !important;
 }
 
-.video :hover {
-  color: #ff0000;
-}
-
 .video-description {
   background: linear-gradient(#07013b, #080127fd) !important;
-
   color: rgb(255, 253, 253);
 }
 
 .video-description:hover {
-  color: #f62828;
+  /* color: #f62828; */
+  color: #f6ae28;
   background: linear-gradient(#606985, #020429) !important;
 }
 

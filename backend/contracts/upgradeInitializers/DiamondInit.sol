@@ -41,6 +41,7 @@ contract DiamondInit {
             .layout();
         ERC20MetadataStorage.setName(tokenStorage, ERC20TokenName);
         ERC20MetadataStorage.setSymbol(tokenStorage, ERC20TokenSymbol);
+        ERC20MetadataStorage.setDecimals(tokenStorage, 18);
 
         // add your own state variables
         // EIP-2535 specifies that the `diamondCut` function takes two optional

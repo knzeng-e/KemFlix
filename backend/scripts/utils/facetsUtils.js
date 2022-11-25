@@ -2,6 +2,7 @@ const facetNames = [
     'DiamondLoupeFacet',
     'OwnershipFacet',
     'MembershipFacet',
+    'AnkhTokenFacet',
 ];
 
 const getFacetArtifact = async (facetName) => {

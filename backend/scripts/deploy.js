@@ -1,13 +1,16 @@
 /* global ethers */
 /* eslint prefer-const: "off" */
 
-const { facetNames, waitFacetMining, getFacetArtifact } = require("./utils/facetsUtils")
+const { facetNames, waitFacetMining, getFacetArtifact } = require("./utils/facetsUtils");
 
-const { getSelectors, FacetCutAction } = require('./libraries/diamond.js')
+const { getSelectors, FacetCutAction } = require("./libraries/diamond.js");
+
+const { ERC20TokenInfos } = require("./libraries/ankhToken");
 
 async function deployDiamond () {
-  const accounts = await ethers.getSigners()
-  const contractOwner = accounts[0]
+  const accounts = await ethers.getSigners();
+  const contractOwner = accounts[ 0 ];
+  const { tokenName, tokenSymbol } = ERC20TokenInfos;
 
   // deploy DiamondCutFacet
   const DiamondCutFacet = await ethers.getContractFactory('DiamondCutFacet')
@@ -56,7 +59,7 @@ async function deployDiamond () {
   let tx
   let receipt
   // call to init function
-  let functionCall = diamondInit.interface.encodeFunctionData('init')
+  let functionCall = diamondInit.interface.encodeFunctionData('init', [tokenName, tokenSymbol])
   tx = await diamondCut.diamondCut(cut, diamondInit.address, functionCall)
   console.log('Diamond cut tx: ', tx.hash)
   receipt = await tx.wait()

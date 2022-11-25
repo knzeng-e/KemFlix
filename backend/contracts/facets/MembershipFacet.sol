@@ -1,10 +1,11 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.17;
 
 import {LibDiamond} from "../libraries/LibDiamond.sol";
+import {IMembership} from "../interfaces/IMembership.sol";
 import {LibMembership} from "../libraries/LibMembership.sol";
 
-contract MembershipFacet {
+contract MembershipFacet is IMembership {
     modifier onlyMember() {
         LibMembership.MembershipStorage storage mbStore = LibMembership
             .membershipStorage();
@@ -17,7 +18,7 @@ contract MembershipFacet {
         _;
     }
 
-    function register(bytes32 login) external {
+    function register(bytes32 login) external override {
         LibMembership.MembershipStorage storage mbStore = LibMembership
             .membershipStorage();
 
@@ -34,6 +35,7 @@ contract MembershipFacet {
     function checkMembership()
         external
         view
+        override
         returns (bool isMember, bytes32 userName)
     {
         LibMembership.MembershipStorage storage mbStore = LibMembership
@@ -43,7 +45,7 @@ contract MembershipFacet {
         userName = mbStore.addressToLogin[msg.sender];
     }
 
-    function revokeMembership() external onlyMember {
+    function revokeMembership() external override onlyMember {
         LibMembership.MembershipStorage storage mbStore = LibMembership
             .membershipStorage();
 

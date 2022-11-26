@@ -6,10 +6,10 @@ import {IMembership} from "../interfaces/IMembership.sol";
 import {LibMembership} from "../libraries/LibMembership.sol";
 
 contract MembershipFacet is IMembership {
+    using LibMembership for address;
+
     modifier onlyMember() {
-        LibMembership.MembershipStorage storage mbStore = LibMembership
-            .membershipStorage();
-        require(mbStore.isMember[msg.sender], "Not a member");
+        require(msg.sender._isMember(), "Not a member");
         _;
     }
 
@@ -19,17 +19,9 @@ contract MembershipFacet is IMembership {
     }
 
     function register(bytes32 login) external override {
-        LibMembership.MembershipStorage storage mbStore = LibMembership
-            .membershipStorage();
-
-        require(
-            mbStore.isMember[msg.sender] == false &&
-                mbStore.addressToLogin[msg.sender] == bytes32(0),
-            "already registered"
-        );
-        mbStore.isMember[msg.sender] = true;
-        mbStore.addressToLogin[msg.sender] = login;
-        emit LibMembership.MemberRegistered(login, msg.sender, block.timestamp);
+        address user = msg.sender;
+        require(user._isNotRegistered(), "already registered");
+        LibMembership._recordMember(login, user);
     }
 
     function checkMembership()
@@ -39,21 +31,13 @@ contract MembershipFacet is IMembership {
         returns (bool isMember, bytes32 userName)
     {
         LibMembership.MembershipStorage storage mbStore = LibMembership
-            .membershipStorage();
+            ._membershipStorage();
 
         isMember = mbStore.isMember[msg.sender];
         userName = mbStore.addressToLogin[msg.sender];
     }
 
     function revokeMembership() external override onlyMember {
-        LibMembership.MembershipStorage storage mbStore = LibMembership
-            .membershipStorage();
-
-        mbStore.isMember[msg.sender] = false;
-        emit LibMembership.MemberRevoked(
-            mbStore.addressToLogin[msg.sender],
-            msg.sender,
-            block.timestamp
-        );
+        msg.sender._unRegister();
     }
 }

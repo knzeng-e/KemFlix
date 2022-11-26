@@ -23,7 +23,35 @@ library LibMembership {
         uint256 indexed timestamp
     );
 
-    function membershipStorage()
+    function _recordMember(bytes32 login, address userAddress) internal {
+        MembershipStorage storage mbStore = _membershipStorage();
+
+        mbStore.isMember[userAddress] = true;
+        mbStore.addressToLogin[userAddress] = login;
+        emit MemberRegistered(login, userAddress, block.timestamp);
+    }
+
+    function _unRegister(address userAddress) internal {
+        MembershipStorage storage mbStore = _membershipStorage();
+
+        mbStore.isMember[userAddress] = false;
+        emit MemberRevoked(
+            mbStore.addressToLogin[userAddress],
+            userAddress,
+            block.timestamp
+        );
+    }
+
+    function _isNotRegistered(address _operator) internal view returns (bool) {
+        return (!_isMember(_operator) &&
+            _membershipStorage().addressToLogin[_operator] == bytes32(0));
+    }
+
+    function _isMember(address _operator) internal view returns (bool) {
+        return _membershipStorage().isMember[_operator];
+    }
+
+    function _membershipStorage()
         internal
         pure
         returns (MembershipStorage storage mbStore)

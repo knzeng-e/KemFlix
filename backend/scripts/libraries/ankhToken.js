@@ -1,6 +1,6 @@
 const ERC20TokenInfos = {
   tokenName: "AnkhToken",
-  tokenSymbol: "ANKH"
+  tokenSymbol: "☥"
 }
 
 module.exports = {

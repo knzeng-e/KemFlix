@@ -1,7 +1,7 @@
 /* global ethers */
 /* eslint prefer-const: "off" */
 
-const { facetNames, waitFacetMining, getFacetArtifact } = require("./utils/facetsUtils");
+const { FACET_NAMES, deployNewFacet } = require("./utils/facetsUtils");
 
 const { getSelectors, FacetCutAction } = require("./libraries/diamond.js");
 
@@ -37,11 +37,8 @@ async function deployDiamond () {
 
   const cut = []
 
-  for (const facetName of facetNames) {
-    const facet = await getFacetArtifact(facetName);
-
-    const deployedFacet = await facet.deploy();
-    await waitFacetMining(deployedFacet);
+  for (const facetName of FACET_NAMES) {
+    const deployedFacet = await deployNewFacet(facetName);
 
     console.log(`${facetName} deployed: ${deployedFacet.address}`)
     const newFacetCut = {

@@ -1,4 +1,4 @@
-const facetNames = [
+const FACET_NAMES = [
     'DiamondLoupeFacet',
     'OwnershipFacet',
     'MembershipFacet',
@@ -11,12 +11,15 @@ const getFacetArtifact = async (facetName) => {
     return facetArtifact;
 };
 
-const waitFacetMining = async (deployedFacet) => {
+const deployNewFacet = async (facetName) => {
+    const facetArtifact = await getFacetArtifact(facetName);
+    const deployedFacet = await facetArtifact.deploy();
     await deployedFacet.deployed();
+    
+    return deployedFacet;
 };
 
 module.exports = {
-    facetNames,
-    waitFacetMining,
-    getFacetArtifact,
+    FACET_NAMES,
+    deployNewFacet,
 };

@@ -10,11 +10,12 @@ contract MovieManagerFacet is SolidStateERC1155, IMovieManager {
 
     function createMovie(
         bytes32 movieTitle,
+        uint256 releaseDate,
         string memory uri
     ) external returns (uint256) {
         //TODO:  ensureIsContentProvider();
 
-        uint256 nextID = msg.sender._recordMovie(movieTitle, uri);
+        uint256 nextID = msg.sender.recordMovie(movieTitle, releaseDate, uri);
         _safeMint(msg.sender, nextID, 1, "");
         _setTokenURI(nextID, uri);
         return nextID;
@@ -22,15 +23,15 @@ contract MovieManagerFacet is SolidStateERC1155, IMovieManager {
 
     /**
      *  buyMovie - function called by any user seeking to own one instance of a movie
-     * @param movieTitle - The title of the movie to buy
+     * @param movieID - The ID of the movie to buy
      */
-    function buyMovie(bytes32 movieTitle) external payable {
-        LibMovieManager.Movie memory movieToBuy = movieTitle.checkExistance();
-
-        uint256 duePaiement = movieToBuy.price;
+    function buyMovie(uint256 movieID) external payable {
+        LibMovieManager.Movie memory movieToBuy = LibMovieManager.fetchMovie(
+            movieID
+        );
 
         if (msg.value < movieToBuy.price) {
-            revert InsufficientFunds(msg.value, duePaiement);
+            revert InsufficientFunds(msg.value, movieToBuy.price);
         }
         // TODO: rufund remaining fund if more are provided
         // Alternativelty, the additional funds can converted into credit ankh tokens
@@ -39,11 +40,13 @@ contract MovieManagerFacet is SolidStateERC1155, IMovieManager {
 
     /**
      *  buyMovie - function called by any user seeking to own several instances of a movie
-     * @param movieTitle - The title of the movie to buy
+     * @param movieID - The ID of the movie to buy
      * @param amount - the amount of movies to buy
      */
-    function buyMovie(bytes32 movieTitle, uint256 amount) external payable {
-        LibMovieManager.Movie memory movieToBuy = movieTitle.checkExistance();
+    function buyMovie(uint256 movieID, uint256 amount) external payable {
+        LibMovieManager.Movie memory movieToBuy = LibMovieManager.fetchMovie(
+            movieID
+        );
 
         uint256 totalCost = movieToBuy.price * amount;
         if (msg.value < (totalCost)) {
@@ -52,6 +55,12 @@ contract MovieManagerFacet is SolidStateERC1155, IMovieManager {
         // TODO: rufund remaining fund if more are provided
         // Alternativelty, the additional funds can converted into credit ankh tokens
         _safeMint(msg.sender, movieToBuy.index, amount, "");
+    }
+
+    function getMovie(
+        uint256 movieID
+    ) external view returns (LibMovieManager.Movie memory movie) {
+        return LibMovieManager.fetchMovie(movieID);
     }
 
     // add ability to re-sell owned movies - issue #24

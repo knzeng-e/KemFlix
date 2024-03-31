@@ -10,36 +10,39 @@ library LibMovieManager {
         bytes32 title;
         uint256 index;
         uint256 price;
+        uint256 releaseDate;
         address provider;
         string uri;
     }
 
     struct MovieManagerStorage {
-        uint256 lastCreatedIndex;
-        mapping(bytes32 => Movie) movies;
+        uint256 nbMovies;
+        mapping(uint256 => Movie) movies;
     }
 
-    function _recordMovie(
+    function recordMovie(
         address provider,
         bytes32 title,
+        uint256 releaseDate,
         string memory uri
     ) internal returns (uint256 nextID) {
-        MovieManagerStorage storage movieStore = _moviemanagerStorage();
+        MovieManagerStorage storage movieStore = moviemanagerStorage();
 
-        nextID = movieStore.lastCreatedIndex + 1;
+        nextID = movieStore.nbMovies + 1;
 
-        movieStore.movies[title] = Movie({
-            title: title,
+        movieStore.movies[nextID] = Movie({
             index: nextID,
+            title: title,
             price: 0,
             provider: provider,
-            uri: uri
+            uri: uri,
+            releaseDate: releaseDate
         });
 
-        movieStore.lastCreatedIndex = nextID;
+        movieStore.nbMovies = nextID;
     }
 
-    function _moviemanagerStorage()
+    function moviemanagerStorage()
         internal
         pure
         returns (MovieManagerStorage storage mvStore)
@@ -51,14 +54,14 @@ library LibMovieManager {
         }
     }
 
-    function checkExistance(
-        bytes32 movieTitle
+    function fetchMovie(
+        uint256 movieID
     ) internal view returns (Movie memory movie) {
-        MovieManagerStorage storage movieStore = _moviemanagerStorage();
+        MovieManagerStorage storage movieStore = moviemanagerStorage();
 
-        movie = movieStore.movies[movieTitle];
+        movie = movieStore.movies[movieID];
         if (movie.provider == address(0)) {
-            revert IMovieManager.MovieNotFound(movie.index);
+            revert IMovieManager.MovieNotFound(movieID);
         }
     }
 }

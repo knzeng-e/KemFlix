@@ -7,7 +7,8 @@ const VidoeStore = ({users}) => {
     return (
         <>
             <Card.Group className="Videos" itemsPerRow={3} stackable centered>
-
+                
+                (// TODO: Render movies from NFT metadata)
                 {documentaires.map((documentaire, index) => {
                     return (
                             <Video

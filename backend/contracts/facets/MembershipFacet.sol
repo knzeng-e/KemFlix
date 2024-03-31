@@ -40,4 +40,6 @@ contract MembershipFacet is IMembership {
     function revokeMembership() external override onlyMember {
         msg.sender._unRegister();
     }
+
+    //TODO:  register content providers - issue #22
 }

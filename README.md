@@ -1,75 +1,76 @@
- 
-![Alt text](KemFlix_1.png "KemFlix_home")
- 
-![Alt text](KemFlix_2.png "KemFlix_book")
+# KemFlix
 
-# Getting Started with Create React App
+**A Web3 media library for the Kemet cultural community — by Kemits, for Kemits.**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+KemFlix gathers African and Afro-descendant culture and knowledge into one place: documentaries, animes, conferences, web radios, an audio library, audiobooks and courses. Membership is recorded on-chain rather than owned by a platform, so belonging to the community is something a member holds, not something a database grants.
 
-## Available Scripts
+![KemFlix home](KemFlix_1.png)
+![KemFlix library](KemFlix_2.png)
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## What it does
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+| Section | Content |
+| --- | --- |
+| Documentaires · Animes · Conférences | Curated video library |
+| Audiothèque · Webradios | Streaming audio, built on `react-h5-audio-player` |
+| Audiobooks | Long-form listening |
+| Formations | E-learning tracks, including Ethereum/blockchain fundamentals and economic theory |
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Architecture
 
-### `npm test`
+KemFlix pairs a conventional React frontend with an on-chain membership layer.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+React 17 (CRA) ── Firebase Auth ──── account session
+       │
+       └── ethers v5 / useDApp ──── Diamond proxy (EIP-2535)
+                                     ├── MembershipFacet  — register / check / revoke
+                                     ├── AnkhTokenFacet   — ERC-20 (SolidState)
+                                     ├── DiamondCutFacet  — upgrades
+                                     ├── DiamondLoupeFacet
+                                     └── OwnershipFacet
+```
 
-### `npm run build`
+**Why a Diamond.** The contract backend uses the [EIP-2535 Diamond pattern](https://eips.ethereum.org/EIPS/eip-2535): one stable address, behaviour split across facets that can be added, replaced or removed through `diamondCut`. A media platform grows feature by feature — membership first, then a token, then whatever the community needs next — and the Diamond lets that happen without redeploying or migrating members.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Membership.** `MembershipFacet` keeps a minimal on-chain register: a member calls `register(login)` with a chosen name, `checkMembership()` returns their status and name, and `revokeMembership()` lets them leave. Administrative operations are gated by the Diamond owner. The register stores a `bytes32` login and an address — no profile, no personal data.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**The Ankh token.** `AnkhTokenFacet` exposes an ERC-20 (via SolidState) from the same Diamond. The Ankh — the Kemetic sign of life — is the intended unit of participation for the community.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Stack
 
-### `npm run eject`
+React 17 · Semantic UI · ethers v5 · `@usedapp/core` · MetaMask onboarding · Firebase (auth + hosting) · Hardhat · Solidity 0.8
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Running it
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+# frontend
+npm install
+npm start          # http://localhost:3000
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+# contracts
+cd backend
+npm install
+npx hardhat test
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Deployment targets Firebase Hosting: `npm run deploy`.
 
-## Learn More
+## Status and honesty notes
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+This is a 2022 community project, kept public as a reference rather than maintained as production software.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- The `backend/` tree starts from [`mudgen/diamond-2-hardhat`](https://github.com/mudgen/diamond-2-hardhat); `MembershipFacet` and `AnkhTokenFacet` are the KemFlix-specific additions, alongside the reference `Test1Facet`/`Test2Facet` that ship with that template.
+- `AnkhTokenFacet` is a thin SolidState ERC-20 — the token exists as a facet, but supply policy and distribution were never specified.
+- Content access is not cryptographically enforced. Membership is recorded on-chain; gating the media itself against that record is unfinished work.
+- Dependencies are from 2022 (React 17, CRA 4, ethers v5) and have known advisories. Do not deploy as-is.
 
-### Code Splitting
+## Lineage
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+KemFlix is where the Diamond-as-runtime idea started for me. The same architecture — a durable proxy whose facets behave like upgradeable modules — later became [Polkadot EVM Smart Runtime](https://github.com/knzeng-e/polkadot-evm-smart-runtime), which treats facets as pallets on Polkadot execution environments, and then the artist-owned `SmartRuntime` in [Dotify](https://github.com/knzeng-e/dotify).
 
-### Analyzing the Bundle Size
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+GPL-3.0
